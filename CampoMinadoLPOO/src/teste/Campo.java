@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.security.SecureRandom;
 
 public class Campo {
-
+	
 	public void imprimeMatriz() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Digite o tamanho da matriz");
@@ -33,10 +33,10 @@ public class Campo {
             		 colocaBomba.checarBomba();
             		 colocaBomba.setBomba(true);
             		 boolean verifica = colocaBomba.getBomba();
-            		 matriz[l][c] = '*'; // Caractere '*' em posições randômicas
+            		 matriz[l][c] = '-'; // Caractere '*' em posições randômicas
             		 System.out.println("A bomba foi colocada: " + verifica);
                  } else {
-                     matriz[l][c] = (char) (random.nextInt(4) + '0'); // Número aleatório de 0 a 3
+                     matriz[l][c] = (char) ('-'); // Número aleatório de 0 a 3
                  }
              }
          }
