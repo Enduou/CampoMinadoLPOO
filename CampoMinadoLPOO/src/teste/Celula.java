@@ -1,6 +1,6 @@
 package teste;
 
-public class Casa {
+public class Celula {
 	
 	private boolean Bomba;
 	private int numero;
@@ -25,6 +25,15 @@ public class Casa {
 	public void checarVazio() {
 		this.Vazio = true;
 	}
+
+	public boolean getBomba() {
+		return Bomba;
+	}
+	
+	public void setBomba(boolean verifica) {
+		this.Bomba = verifica;
+	}
 }
+
 
 
