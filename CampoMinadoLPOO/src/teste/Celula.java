@@ -7,14 +7,13 @@ public class Celula {
     private boolean Vazio;
     private boolean Revelado;
 
-    //inicio do jogo, atributos falsos.
     public void inicioJogo() {
         this.Bomba = false;
         this.Vazio = false;
         this.Revelado = false;
     }
 
-    //ativando atributos para verdadeiros, para quando a checagem for necessária.
+
     public void checarBomba() {
         this.Bomba = true;
     }
@@ -27,7 +26,6 @@ public class Celula {
         this.Vazio = true;
     }
 
-    //Get e set para acessar os atributos em outras classes.
     public boolean getBomba() {
         return Bomba;
     }
@@ -48,6 +46,8 @@ public class Celula {
     public void setVazio (boolean vazio) {
         this.Vazio = vazio;
     }
+}
+    
 
 
 

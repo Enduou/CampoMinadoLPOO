@@ -43,7 +43,7 @@ public class Campo {
             return valorEscolhido;
         } else {
             System.out.println("Posição inválida.");
-            return '\0'; // Retorna um caractere nulo se a posição for inválida
+            return '0'; 
         }
     }
 }
