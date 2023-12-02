@@ -46,6 +46,16 @@ public class Celula {
     public void setVazio (boolean vazio) {
         this.Vazio = vazio;
     }
+
+
+	public int getNumero() {
+		return numero;
+	}
+
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 }
     
 
