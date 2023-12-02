@@ -26,7 +26,11 @@ public class Campo {
         for (int l = 0; l < linha; l++) {
             for (int c = 0; c < coluna; c++) {
                 if (random.nextInt(4) == 0) {
-                    matriz[l][c] = '-';
+                	Celula colocaBomba = new Celula();
+                	colocaBomba.checarBomba();
+                	colocaBomba.setBomba(true);
+                	boolean verifica = colocaBomba.getBomba();
+                	matriz[l][c] = '*';
                 } else {
                     matriz[l][c] = '-';
                 }
@@ -39,11 +43,23 @@ public class Campo {
     public char escolha(int linhaEscolhida, int colunaEscolhida) {
         if (linhaEscolhida >= 0 && linhaEscolhida < linha && colunaEscolhida >= 0 && colunaEscolhida < coluna) {
             char valorEscolhido = matriz[linhaEscolhida][colunaEscolhida];
-            System.out.println("Você escolheu a posição [" + linhaEscolhida + "][" + colunaEscolhida + "] com valor: " + valorEscolhido);
+            System.out.println("Voce escolheu a posicao [" + linhaEscolhida + "][" + colunaEscolhida + "] com valor: " + valorEscolhido);
             return valorEscolhido;
         } else {
-            System.out.println("Posição inválida.");
+            System.out.println("Posicao invalida.");
             return '0'; 
         }
     }
+    public char escolhaFlag(int linhaEscolhida, int colunaEscolhida) {
+        if (linhaEscolhida >= 0 && linhaEscolhida < linha && colunaEscolhida >= 0 && colunaEscolhida < coluna) {
+            char valorEscolhido = matriz[linhaEscolhida][colunaEscolhida];
+            System.out.println("Voce escolheu a posicao [" + linhaEscolhida + "][" + colunaEscolhida + "] BANDEIRA COLOCADA");
+            return valorEscolhido;
+        } else {
+            System.out.println("Posicao invalida.");
+            return '0'; 
+        }
+    
+    
+}
 }

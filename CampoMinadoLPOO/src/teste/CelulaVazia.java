@@ -1,5 +1,5 @@
 package teste;
 
-public class CelulaVazia {
+public class CelulaVazia extends Celula {
 
 }
