@@ -8,9 +8,9 @@ public class Campo {
     private int linha = 7;
     private int coluna = 7;
     private Celula[][] matriz;
-    private int numMinas = 4;
+    private int numMinas = 8;
  
-    public Campo() {
+    public void campo() {
         matriz = new Celula[linha][coluna];
 
     
@@ -40,7 +40,9 @@ public class Campo {
             }
         }    
     }
-
+    public int getLinha() {
+		return linha;
+	}
 	public int getLinha() {
 		return linha;
 	}
@@ -70,18 +72,17 @@ public class Campo {
 
 public void adicionarBomba() {
 	Random rand = new Random();
-	int n = numMinas;
-    while (n > 0) {
+    for (int n=0; n < numMinas; n++) {
         int l = rand.nextInt(linha);
         int c = rand.nextInt(coluna);
 
-        if (matriz[l][c].colocarBomba()) {
-            n--;    
+     if(!(matriz[l][c] instanceof CelulaBomba)) {
+    	 matriz[l][c] = new CelulaBomba();
     
         }  
     }  
 }
-public void descobrirCelula(int linha, int coluna) {
+public void selecionar(int linha, int coluna) {
     if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
         Celula celula = matriz[linha][coluna];
 
@@ -89,39 +90,60 @@ public void descobrirCelula(int linha, int coluna) {
         if (!celula.getRevelado()) {
         	celula.setRevelado(true);
         } else {
-            System.out.println("Essa celula ja foi descoberta.");
+            System.out.println("Essa célula já foi descoberta.");
         }
     } else {
-        System.out.println("Coordenadas invalidas.");
+        System.out.println("Coordenadas inválidas.");
     }
 }
 
 public void colocarFlag(int linha, int coluna) {
     if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
         Celula flag = matriz[linha][coluna];
+
         if(!flag.getFlag()) {
         	flag.setFlag(true);
         }else {
-        	System.out.println("Ja tem bandeira neste local");	
+        	System.out.println("Já tem bandeira neste local");	
         }
-    
+  
+}   
 }
+public void explodir(int linha, int coluna) {
+    if (linha >= 0 && linha< matriz.length && coluna >= 0 && coluna < matriz[linha].length) {
+        if (!(matriz[linha][coluna] instanceof CelulaBomba) && (matriz[linha][coluna] instanceof CelulaVazia) && (!matriz[linha][coluna].getRevelado())) {
+            matriz[linha][coluna].getRevelado();
+            for (int l = linha - 1; l <= linha + 1; l++) {
+                for (int c = coluna - 1; c <= coluna + 1; c++) {
+                    if (l != linha || c != coluna) {
+                        explodir(l, c);
+                    }
+                }
+            }
+        } 
+        else {
+            matriz[linha][coluna].getRevelado();
+        }
+    }
 }
+
 @Override
 public String toString() {
-	String str = "";
+	String f = "";
 		for (int l = 0; l < linha; l++) {
 			for(int c = 0; c < coluna; c++) {
-				str = str + matriz[l][c] + " ";
+				if((matriz[l][c].checarRevelado() && !(matriz[l][c] instanceof CelulaBomba)&& (!(matriz[l][c] instanceof CelulaBomba)))) {
+					
+				}
+				f = f + matriz[l][c] + " ";
 			}
-			str += "\n";
+			f += "\n";
 		}
-	return str;
+	return f;
 }
 
 
 }   
-    
     
     
     

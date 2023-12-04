@@ -4,25 +4,18 @@ import java.util.ArrayList;
 
 public class Celula {
 
-    private boolean bomba;
-    private int numero;
     private boolean Vazio;
     private boolean revelado;
-    private char valor;
     private boolean flag;
-    private boolean clicou;
-    private boolean clicado;
     private ArrayList<Celula> vizinhos;
     
     
     
     
     public Celula() {
-        this.bomba = false;
         this.flag = false;
         this.revelado = false;
-        this.clicou = false;
-        this.clicado = false;
+
         this.vizinhos = new ArrayList();
     }
     
@@ -33,13 +26,13 @@ public class Celula {
     public int numMinasVizinhos() {
         int n = 0;
         for (Celula vizinhos : this.vizinhos) {
-            if (vizinhos.bomba) {
+            if (vizinhos instanceof CelulaBomba) {
                 n++;
             }
         }
         return n;
     }
-    public boolean colocarBomba() {
+   /* public boolean colocarBomba() {
         if (!getBomba()) {
             setBomba(true);
             return true;
@@ -47,9 +40,9 @@ public class Celula {
             return false;
         }
     }
-
+*/
   
-    public int selecionar() {
+  /* public int selecionar() {
         this.clicou = true;
 
         if (getBomba()) {
@@ -61,35 +54,20 @@ public class Celula {
     public char getValor() {
         return valor;
     }
+*/
 
-    public void setValor(char valor) {
-        this.valor = valor;
-    }
     public void inicioJogo() {
-        this.bomba = false;
         this.Vazio = false;
         this.revelado = false;
     }
 
 
-    public void checarBomba() {
-        this.bomba = true;
-    }
-
-    public void checarRevelado() {
-        this.revelado = true;
+    public boolean checarRevelado() {
+        return getRevelado();
     }
 
     public void checarVazio() {
         this.Vazio = true;
-    }
-
-    public boolean getBomba() {
-        return bomba;
-    }
-
-    public void setBomba(boolean verifica) {
-        this.bomba = verifica;
     }
 
     public boolean getRevelado() {
@@ -106,16 +84,6 @@ public class Celula {
     }
 
 
-	public int getNumero() {
-		return numero;
-	}
-
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-	
-
 	public boolean getFlag() {
 		return flag;
 	}
@@ -124,22 +92,6 @@ public class Celula {
 		this.flag = flag;
 	}
 
-	@Override
-    public String toString() {
-		if(this.flag) {
-			return "&";
-		}
-        if (this.revelado) {
-            if (this.bomba) {
-                return "-1"; 
-            } else {
-                return "+" + this.numMinasVizinhos(); 
-            }
-        } else {
-            return "?"; 
-        }
-	
-}
 	
 	
 }
