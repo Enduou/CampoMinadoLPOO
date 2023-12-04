@@ -1,4 +1,4 @@
-package teste;
+package celulaPacote;
 
 
 import java.util.Random;
@@ -89,10 +89,10 @@ public void descobrirCelula(int linha, int coluna) {
         if (!celula.getRevelado()) {
         	celula.setRevelado(true);
         } else {
-            System.out.println("Essa célula já foi descoberta.");
+            System.out.println("Essa celula ja foi descoberta.");
         }
     } else {
-        System.out.println("Coordenadas inválidas.");
+        System.out.println("Coordenadas invalidas.");
     }
 }
 
@@ -102,7 +102,7 @@ public void colocarFlag(int linha, int coluna) {
         if(!flag.getFlag()) {
         	flag.setFlag(true);
         }else {
-        	System.out.println("Já tem bandeira neste local");	
+        	System.out.println("Ja tem bandeira neste local");	
         }
     
 }
@@ -140,10 +140,10 @@ public String toString() {
    /* public char escolha(int linhaEscolhida, int colunaEscolhida) {
         if (linhaEscolhida >= 0 && linhaEscolhida < linha && colunaEscolhida >= 0 && colunaEscolhida < coluna) {
             char valorEscolhido = matriz[linhaEscolhida][colunaEscolhida].getValor();
-            System.out.println("Você escolheu a posição [" + linhaEscolhida + "][" + colunaEscolhida + "] com valor: " + valorEscolhido);
+            System.out.println("Vocï¿½ escolheu a posiï¿½ï¿½o [" + linhaEscolhida + "][" + colunaEscolhida + "] com valor: " + valorEscolhido);
             return valorEscolhido;
         } else {
-            System.out.println("Posição inválida.");
+            System.out.println("Posiï¿½ï¿½o invï¿½lida.");
             return '0';
         }
     }

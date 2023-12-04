@@ -1,6 +1,9 @@
-package teste;
+package mainPacote;
+import celulaPacote.*;
 
 import java.util.Scanner;
+
+import celulaPacote.Campo;
 
 public class Main {
 
@@ -60,37 +63,41 @@ public class Main {
     	Campo c = new Campo();
     	c.adicionarBomba();
     	
-
+    	boolean jogo = true;
+    	
     	
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Campo Inicial:");
         System.out.println(c);
-
-    System.out.println("----------------digite [1] para revelar casa e [2] para colocar bandeira------------");
-    int escolhaUsuario = scanner.nextInt();
-    if(escolhaUsuario==1) {
-        System.out.print("Digite o número da linha: ");
-        int linha = scanner.nextInt();
-
-        System.out.print("Digite o número da coluna: ");
-        int coluna = scanner.nextInt();
-
-      
-        c.descobrirCelula(linha, coluna);
-    }else if(escolhaUsuario==2) {
-    	System.out.print("Digite o número da linha: ");
-        int linha = scanner.nextInt();
-
-        System.out.print("Digite o número da coluna: ");
-        int coluna = scanner.nextInt();
         
-        c.colocarFlag(linha, coluna);
-        
-    }
-    System.out.println("Campo Atualizado:");
-    System.out.println(c);
-
-    scanner.close();
-}
-}
+        while(jogo) {
+	    System.out.println("----------------digite [1] para revelar casa e [2] para colocar bandeira------------");
+	    int escolhaUsuario = scanner.nextInt();
+	    if(escolhaUsuario==1) {
+	        System.out.print("Digite o numero da linha: ");
+	        int linha = scanner.nextInt();
+	
+	        System.out.print("Digite o numero da coluna: ");
+	        int coluna = scanner.nextInt();
+	
+	      
+	        c.descobrirCelula(linha, coluna);
+	    }else if(escolhaUsuario==2) {
+	    	System.out.print("Digite o numero da linha: ");
+	        int linha = scanner.nextInt();
+	
+	        System.out.print("Digite o numero da coluna: ");
+	        int coluna = scanner.nextInt();
+	        
+	        c.colocarFlag(linha, coluna);
+	        
+	    }
+	    System.out.println("Campo Atualizado:");
+	    System.out.println(c);
+	
+	   
+	}
+        scanner.close();
+	}
+} 

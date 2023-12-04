@@ -1,4 +1,4 @@
-package teste;
+package celulaPacote;
 
 
 public class CelulaVazia extends Celula {
