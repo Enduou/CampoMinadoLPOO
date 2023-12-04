@@ -9,13 +9,17 @@ public class Celula {
     private boolean Vazio;
     private boolean revelado;
     private char valor;
+    private boolean flag;
     private boolean clicou;
     private boolean clicado;
     private ArrayList<Celula> vizinhos;
     
     
+    
+    
     public Celula() {
         this.bomba = false;
+        this.flag = false;
         this.revelado = false;
         this.clicou = false;
         this.clicado = false;
@@ -110,9 +114,21 @@ public class Celula {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
+	
+
+	public boolean getFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
 
 	@Override
     public String toString() {
+		if(this.flag) {
+			return "&";
+		}
         if (this.revelado) {
             if (this.bomba) {
                 return "-1"; 
@@ -122,7 +138,10 @@ public class Celula {
         } else {
             return "?"; 
         }
-    }
+	
+}
+	
+	
 }
 
 

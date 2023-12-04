@@ -61,14 +61,15 @@ public class Main {
     	c.adicionarBomba();
     	
 
-    	// Crie um Scanner para ler a entrada do usuário
+    	
         Scanner scanner = new Scanner(System.in);
 
-        // Exiba o estado inicial do campo
         System.out.println("Campo Inicial:");
         System.out.println(c);
 
-        // Peça ao usuário que insira a linha e a coluna da célula que deseja descobrir
+    System.out.println("----------------digite [1] para revelar casa e [2] para colocar bandeira------------");
+    int escolhaUsuario = scanner.nextInt();
+    if(escolhaUsuario==1) {
         System.out.print("Digite o número da linha: ");
         int linha = scanner.nextInt();
 
@@ -77,13 +78,19 @@ public class Main {
 
       
         c.descobrirCelula(linha, coluna);
+    }else if(escolhaUsuario==2) {
+    	System.out.print("Digite o número da linha: ");
+        int linha = scanner.nextInt();
 
-        // Exiba o estado atualizado do campo
-        System.out.println("Campo Atualizado:");
-        System.out.println(c);
-
-        // Feche o scanner
-        scanner.close();
+        System.out.print("Digite o número da coluna: ");
+        int coluna = scanner.nextInt();
+        
+        c.colocarFlag(linha, coluna);
+        
     }
+    System.out.println("Campo Atualizado:");
+    System.out.println(c);
 
+    scanner.close();
+}
 }

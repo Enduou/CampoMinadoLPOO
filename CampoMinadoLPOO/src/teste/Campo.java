@@ -96,7 +96,17 @@ public void descobrirCelula(int linha, int coluna) {
     }
 }
 
-
+public void colocarFlag(int linha, int coluna) {
+    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
+        Celula flag = matriz[linha][coluna];
+        if(!flag.getFlag()) {
+        	flag.setFlag(true);
+        }else {
+        	System.out.println("Já tem bandeira neste local");	
+        }
+    
+}
+}
 @Override
 public String toString() {
 	String str = "";
