@@ -1,17 +1,10 @@
 package teste;
 
-public class Jogador {
-	private boolean Clicou;
-	private boolean Clique;
-	private boolean Recomecar;
-	private int dificuldade;
+public class Jogador extends Celula {
 
+    private boolean clique;
+    private boolean recomecar;
+    private int dificuldade;
 
-
-
-
-
-
+    
 }
-
-

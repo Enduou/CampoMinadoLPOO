@@ -6,13 +6,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        boolean jogo = true;
+        /*boolean jogo = true;
         Scanner input = new Scanner(System.in);
 
         System.out.println("Hello World");
         while (jogo) {
             Campo tabuleiro = new Campo();
-            tabuleiro.imprimeMatriz();
+            tabuleiro.imprimeMatriz();[]
 
             System.out.println("-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
             System.out.println("Digite [1] para selecionar a celula/" 
@@ -50,6 +50,40 @@ public class Main {
         // Fechar o Scanner quando nÃ£o for mais necessÃ¡rio
         input.close();
         System.out.println("Obrigado por jogar!");
+        
+        
+        
+        
     }
-}
+    */
+    	
+    	Campo c = new Campo();
+    	c.adicionarBomba();
+    	
 
+    	// Crie um Scanner para ler a entrada do usuário
+        Scanner scanner = new Scanner(System.in);
+
+        // Exiba o estado inicial do campo
+        System.out.println("Campo Inicial:");
+        System.out.println(c);
+
+        // Peça ao usuário que insira a linha e a coluna da célula que deseja descobrir
+        System.out.print("Digite o número da linha: ");
+        int linha = scanner.nextInt();
+
+        System.out.print("Digite o número da coluna: ");
+        int coluna = scanner.nextInt();
+
+      
+        c.descobrirCelula(linha, coluna);
+
+        // Exiba o estado atualizado do campo
+        System.out.println("Campo Atualizado:");
+        System.out.println(c);
+
+        // Feche o scanner
+        scanner.close();
+    }
+
+}
