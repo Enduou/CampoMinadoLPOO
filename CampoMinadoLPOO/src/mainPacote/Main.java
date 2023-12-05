@@ -49,7 +49,7 @@ public class Main {
 	        int coluna = scanner.nextInt();
 	
 	      
-	        c.explodir(linha, coluna);
+	        c.descobrirCelula(linha, coluna);
 	    }else if(escolhaUsuario==2) {
 	    	System.out.print("Digite o numero da linha: ");
 	        int linha = scanner.nextInt();

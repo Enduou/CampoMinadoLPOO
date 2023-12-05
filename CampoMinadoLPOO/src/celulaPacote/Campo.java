@@ -83,6 +83,25 @@ public class Campo {
 	        }  
 	    }  
 	}
+	
+	
+	public void descobrirCelula(int linha, int coluna) {
+	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
+	        Celula celula = matriz[linha][coluna];
+
+
+	        if (!celula.getRevelado()) {
+	        	celula.setRevelado(true);
+	        } else {
+	            System.out.println("Essa celula ja foi descoberta.");
+	        }
+	    } else {
+	        System.out.println("Coordenadas invalidas.");
+	    }
+	}
+	
+	
+	
 	public void selecionar(int linha, int coluna) {
 	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
 	        Celula celula = matriz[linha][coluna];
