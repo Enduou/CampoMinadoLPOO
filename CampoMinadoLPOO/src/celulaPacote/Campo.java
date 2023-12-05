@@ -8,10 +8,12 @@ public class Campo {
     private int linha = 7;
     private int coluna = 7;
     private Celula[][] matriz;
-    private int numMinas = 8;
+    private int numMinas = 4;
+    private boolean[][] celulasAbertas;
  
-    public void campo() {
+    public Campo() {
         matriz = new Celula[linha][coluna];
+        celulasAbertas = new boolean[linha][coluna];
 
     
         for (int l = 0; l < linha; l++) {
@@ -40,9 +42,7 @@ public class Campo {
             }
         }    
     }
-    public int getLinha() {
-		return linha;
-	}
+
 	public int getLinha() {
 		return linha;
 	}
@@ -70,115 +70,78 @@ public class Campo {
 
 
 
-public void adicionarBomba() {
-	Random rand = new Random();
-    for (int n=0; n < numMinas; n++) {
-        int l = rand.nextInt(linha);
-        int c = rand.nextInt(coluna);
+	public void adicionarBomba() {
+		Random rand = new Random();
+		int n = numMinas;
+	    while (n > 0) {
+	        int l = rand.nextInt(linha);
+	        int c = rand.nextInt(coluna);
+	
+	        if (matriz[l][c].colocarBomba()) {
+	            n--;    
+	    
+	        }  
+	    }  
+	}
+	public void selecionar(int linha, int coluna) {
+	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
+	        Celula celula = matriz[linha][coluna];
 
-     if(!(matriz[l][c] instanceof CelulaBomba)) {
-    	 matriz[l][c] = new CelulaBomba();
-    
-        }  
-    }  
-}
-public void selecionar(int linha, int coluna) {
-    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
-        Celula celula = matriz[linha][coluna];
 
-
-        if (!celula.getRevelado()) {
-        	celula.setRevelado(true);
-        } else {
-            System.out.println("Essa célula já foi descoberta.");
-        }
-    } else {
-        System.out.println("Coordenadas inválidas.");
-    }
-}
-
-public void colocarFlag(int linha, int coluna) {
-    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
-        Celula flag = matriz[linha][coluna];
-
-        if(!flag.getFlag()) {
-        	flag.setFlag(true);
-        }else {
-        	System.out.println("Já tem bandeira neste local");	
-        }
-  
-}   
-}
-public void explodir(int linha, int coluna) {
-    if (linha >= 0 && linha< matriz.length && coluna >= 0 && coluna < matriz[linha].length) {
-        if (!(matriz[linha][coluna] instanceof CelulaBomba) && (matriz[linha][coluna] instanceof CelulaVazia) && (!matriz[linha][coluna].getRevelado())) {
-            matriz[linha][coluna].getRevelado();
-            for (int l = linha - 1; l <= linha + 1; l++) {
-                for (int c = coluna - 1; c <= coluna + 1; c++) {
-                    if (l != linha || c != coluna) {
-                        explodir(l, c);
-                    }
-                }
-            }
-        } 
-        else {
-            matriz[linha][coluna].getRevelado();
-        }
-    }
-}
+	        if (!celula.getRevelado()) {
+	        	celula.setRevelado(true);
+	        } else {
+	            System.out.println("Essa cÃ©lula jÃ¡ foi descoberta.");
+	        }
+	    } else {
+	        System.out.println("Coordenadas invÃ¡lidas.");
+	    }
+	}
+	
+	public void explodir(int linha, int coluna) {
+	    if (linha >= 0 && linha< matriz.length && coluna >= 0 && coluna < matriz[linha].length) {
+	        if (!(matriz[linha][coluna] instanceof CelulaBomba) && (matriz[linha][coluna] instanceof CelulaVazia) && (!matriz[linha][coluna].getRevelado())) {
+	            matriz[linha][coluna].getRevelado();
+	            for (int l = linha - 1; l <= linha + 1; l++) {
+	                for (int c = coluna - 1; c <= coluna + 1; c++) {
+	                    if (l != linha || c != coluna) {
+	                        explodir(l, c);
+	                    }
+	                }
+	            }
+	        } 
+	        else {
+	            matriz[linha][coluna].getRevelado();
+	        }
+	    }
+	}
+	
+	
+	
+	public void colocarFlag(int linha, int coluna) {
+	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
+	        Celula flag = matriz[linha][coluna];
+	        if(!flag.getFlag()) {
+	        	flag.setFlag(true);
+	        }else {
+	        	System.out.println("Ja tem bandeira neste local");	
+	        }
+	      
+	            }
+	        } 
+	
 
 @Override
 public String toString() {
-	String f = "";
+	String str = "";
 		for (int l = 0; l < linha; l++) {
 			for(int c = 0; c < coluna; c++) {
-				if((matriz[l][c].checarRevelado() && !(matriz[l][c] instanceof CelulaBomba)&& (!(matriz[l][c] instanceof CelulaBomba)))) {
-					
-				}
-				f = f + matriz[l][c] + " ";
+				str = str + matriz[l][c] + " ";
 			}
-			f += "\n";
+			str += "\n";
 		}
-	return f;
+	return str;
 }
 
 
 }   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   /* public char escolha(int linhaEscolhida, int colunaEscolhida) {
-        if (linhaEscolhida >= 0 && linhaEscolhida < linha && colunaEscolhida >= 0 && colunaEscolhida < coluna) {
-            char valorEscolhido = matriz[linhaEscolhida][colunaEscolhida].getValor();
-            System.out.println("Vocï¿½ escolheu a posiï¿½ï¿½o [" + linhaEscolhida + "][" + colunaEscolhida + "] com valor: " + valorEscolhido);
-            return valorEscolhido;
-        } else {
-            System.out.println("Posiï¿½ï¿½o invï¿½lida.");
-            return '0';
-        }
-    }
-    */
-    /*public char escolhaFlag(int linhaEscolhida, int colunaEscolhida) {
-        if (linhaEscolhida >= 0 && linhaEscolhida < linha && colunaEscolhida >= 0 && colunaEscolhida < coluna) {
-            Celula valorEscolhido = matriz[linhaEscolhida][colunaEscolhida];
-            System.out.println("Voce escolheu a posicao [" + linhaEscolhida + "][" + colunaEscolhida + "] BANDEIRA COLOCADA");
-            return valorEscolhido;
-        } else {
-            System.out.println("Posicao invalida.");
-            return '0'; 
-        }
-   */ 
-    
-
