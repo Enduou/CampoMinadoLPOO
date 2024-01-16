@@ -5,24 +5,27 @@ import java.util.Random;
 
 public class Campo {
 
-    private int linha = 7;
+    
+	//Atributos que definem as especificações para inicialização da matriz campo
+	private int linha = 7;
     private int coluna = 7;
     private Celula[][] matriz;
     private int numMinas = 4;
     private boolean[][] celulasAbertas;
  
+    //Construtor principal do código, gera o tabuleiro e com auxílio de outros métodos define cada célula
     public Campo() {
         matriz = new Celula[linha][coluna];
         celulasAbertas = new boolean[linha][coluna];
 
-    
+        //Loop de criação do tabuleiro
         for (int l = 0; l < linha; l++) {
             for (int c = 0; c < coluna; c++) {
                 matriz[l][c] = new Celula();
             }
         }
 
-
+        //Loop que identifica cada célula como vizinhas umas as outras
         for (int l = 0; l < linha; l++) {
             for (int c = 0; c < coluna; c++) {
                 if (l > 0) {
@@ -43,7 +46,8 @@ public class Campo {
         }    
     }
 
-	public int getLinha() {
+	//Métodos get e set para acessar e modificar atributos
+    public int getLinha() {
 		return linha;
 	}
 
@@ -69,7 +73,7 @@ public class Campo {
 	
 
 
-
+	// Método para randomizar o número de bombas e posicionar elas nas suas devidas células
 	public void adicionarBomba() {
 		Random rand = new Random();
 		int n = numMinas;
@@ -84,7 +88,7 @@ public class Campo {
 	    }  
 	}
 	
-	
+	// Método para descobrir cada célula, verificando se já tiveram seus valores modificados ou não
 	public void descobrirCelula(int linha, int coluna) {
 	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
 	        Celula celula = matriz[linha][coluna];
@@ -101,7 +105,7 @@ public class Campo {
 	}
 	
 	
-	
+	// Mesmo trecho de código do anterior, verificar se posso apagar.
 	public void selecionar(int linha, int coluna) {
 	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
 	        Celula celula = matriz[linha][coluna];
@@ -117,6 +121,8 @@ public class Campo {
 	    }
 	}
 	
+	
+	// testar funcionamento do método de explosão
 	public void explodir(int linha, int coluna) {
 	    if (linha >= 0 && linha< matriz.length && coluna >= 0 && coluna < matriz[linha].length) {
 	        if (!(matriz[linha][coluna] instanceof CelulaBomba) && (matriz[linha][coluna] instanceof CelulaVazia) && (!matriz[linha][coluna].getRevelado())) {
@@ -136,7 +142,7 @@ public class Campo {
 	}
 	
 	
-	
+	// Coloca Flag na célula solicitada
 	public void colocarFlag(int linha, int coluna) {
 	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
 	        Celula flag = matriz[linha][coluna];
@@ -149,7 +155,7 @@ public class Campo {
 	            }
 	        } 
 	
-
+//Polimorfismo para incrementar os caracteres de espaço na formatação do tabuleiro 
 @Override
 public String toString() {
 	String str = "";

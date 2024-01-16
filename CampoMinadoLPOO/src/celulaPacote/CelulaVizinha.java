@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class CelulaVizinha extends Celula {
 
-    private ArrayList<Celula> vizinhos;
+    //Lógica para verificação de adjacência usando arraylist
+	
+	private ArrayList<Celula> vizinhos;
 
     public CelulaVizinha() {
         this.vizinhos = new ArrayList<>();

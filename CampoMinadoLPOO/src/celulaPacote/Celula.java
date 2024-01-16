@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Celula {
 
-    private boolean bomba;
+    //Atributos gerais de uma célula [Verificar a possibilidade de mandar para classes filhas]
+	private boolean bomba;
     private int numero;
     private boolean Vazio;
     private boolean revelado;
@@ -16,7 +17,7 @@ public class Celula {
     
     
     
-    
+    //Construtor que inicializa o estado da célula.
     public Celula() {
         this.bomba = false;
         this.flag = false;
@@ -26,10 +27,12 @@ public class Celula {
         this.vizinhos = new ArrayList();
     }
     
+    //Identifica celulas adjacentes como vizinhas umas as outras utilizando ArrayList
     public void adicionarVizinhos(Celula a) {
         this.vizinhos.add(a);
     }
     
+    //Método para checar quantas bombas existem nas proximidades.
     public int numMinasVizinhos() {
         int n = 0;
         for (Celula vizinhos : this.vizinhos) {
@@ -39,6 +42,8 @@ public class Celula {
         }
         return n;
     }
+    
+    // Método que coloca bombas nas células
     public boolean colocarBomba() {
         if (!getBomba()) {
             setBomba(true);
@@ -49,6 +54,7 @@ public class Celula {
     }
 
   
+    //Verificar se posso alterar
     public int selecionar() {
         this.clicou = true;
 
@@ -58,6 +64,8 @@ public class Celula {
             return numMinasVizinhos();
         }
     }
+   
+    //Métodos get e set para acessar e modificar atributos
     public char getValor() {
         return valor;
     }
@@ -124,6 +132,7 @@ public class Celula {
 		this.flag = flag;
 	}
 
+	//Polimorfismo para inserir caracteres na abertura de célula
 	@Override
     public String toString() {
 		if(this.flag) {
