@@ -3,69 +3,52 @@ package celulaPacote;
 import java.util.ArrayList;
 
 public class Celula {
-
-    //Atributos gerais de uma célula [Verificar a possibilidade de mandar para classes filhas]
-	private boolean bomba;
-    private int numero;
-    private boolean Vazio;
+    private boolean bomba;
+    private boolean flag;
     private boolean revelado;
     private char valor;
-    private boolean flag;
-    private boolean clicou;
-    private boolean clicado;
     private ArrayList<Celula> vizinhos;
-    
-    
-    
-    //Construtor que inicializa o estado da célula.
+
     public Celula() {
         this.bomba = false;
         this.flag = false;
         this.revelado = false;
-        this.clicou = false;
-        this.clicado = false;
-        this.vizinhos = new ArrayList();
+        this.vizinhos = new ArrayList<>();
     }
-    
-    //Identifica celulas adjacentes como vizinhas umas as outras utilizando ArrayList
-    public void adicionarVizinhos(Celula a) {
-        this.vizinhos.add(a);
+
+    public void adicionarVizinhos(Celula vizinha) {
+        if (!vizinhos.contains(vizinha)) {
+            vizinhos.add(vizinha);
+        }
     }
-    
-    //Método para checar quantas bombas existem nas proximidades.
+
     public int numMinasVizinhos() {
         int n = 0;
-        for (Celula vizinhos : this.vizinhos) {
-            if (vizinhos.bomba) {
+        for (Celula vizinha : vizinhos) {
+            if (vizinha.bomba) {
                 n++;
             }
         }
         return n;
     }
-    
-    // Método que coloca bombas nas células
+
     public boolean colocarBomba() {
-        if (!getBomba()) {
-            setBomba(true);
+        if (!bomba) {
+            bomba = true;
             return true;
         } else {
             return false;
         }
     }
 
-  
-    //Verificar se posso alterar
-    public int selecionar() {
-        this.clicou = true;
-
-        if (getBomba()) {
+    public int obterValorCelula() {
+        if (bomba) {
             return -1;
         } else {
             return numMinasVizinhos();
         }
     }
-   
-    //Métodos get e set para acessar e modificar atributos
+
     public char getValor() {
         return valor;
     }
@@ -73,23 +56,15 @@ public class Celula {
     public void setValor(char valor) {
         this.valor = valor;
     }
+
     public void inicioJogo() {
         this.bomba = false;
-        this.Vazio = false;
         this.revelado = false;
     }
 
 
-    public void checarBomba() {
-        this.bomba = true;
-    }
-
     public void checarRevelado() {
         this.revelado = true;
-    }
-
-    public void checarVazio() {
-        this.Vazio = true;
     }
 
     public boolean getBomba() {
@@ -106,23 +81,6 @@ public class Celula {
     public void setRevelado(boolean marcado) {
         this.revelado = marcado;
     }
-    public boolean getVazio() {
-        return Vazio;
-    }
-    public void setVazio (boolean vazio) {
-        this.Vazio = vazio;
-    }
-
-
-	public int getNumero() {
-		return numero;
-	}
-
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-	
 
 	public boolean getFlag() {
 		return flag;

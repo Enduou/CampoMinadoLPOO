@@ -11,12 +11,11 @@ public class Campo {
     private int coluna = 7;
     private Celula[][] matriz;
     private int numMinas = 4;
-    private boolean[][] celulasAbertas;
  
     //Construtor principal do código, gera o tabuleiro e com auxílio de outros métodos define cada célula
     public Campo() {
         matriz = new Celula[linha][coluna];
-        celulasAbertas = new boolean[linha][coluna];
+        
 
         //Loop de criação do tabuleiro
         for (int l = 0; l < linha; l++) {
@@ -95,7 +94,7 @@ public class Campo {
 
 
 	        if (!celula.getRevelado()) {
-	        	celula.setRevelado(true);
+	        	celula.setRevelado(true) ;
 	        } else {
 	            System.out.println("Essa celula ja foi descoberta.");
 	        }
@@ -105,28 +104,12 @@ public class Campo {
 	}
 	
 	
-	// Mesmo trecho de código do anterior, verificar se posso apagar.
-	public void selecionar(int linha, int coluna) {
-	    if (linha >= 0 && linha < this.linha && coluna >= 0 && coluna < this.coluna) {
-	        Celula celula = matriz[linha][coluna];
-
-
-	        if (!celula.getRevelado()) {
-	        	celula.setRevelado(true);
-	        } else {
-	            System.out.println("Essa célula já foi descoberta.");
-	        }
-	    } else {
-	        System.out.println("Coordenadas inválidas.");
-	    }
-	}
 	
-	
-	// testar funcionamento do método de explosão
 	public void explodir(int linha, int coluna) {
-	    if (linha >= 0 && linha< matriz.length && coluna >= 0 && coluna < matriz[linha].length) {
-	        if (!(matriz[linha][coluna] instanceof CelulaBomba) && (matriz[linha][coluna] instanceof CelulaVazia) && (!matriz[linha][coluna].getRevelado())) {
-	            matriz[linha][coluna].getRevelado();
+	    if (linha >= 0 && linha < matriz.length && coluna >= 0 && coluna < matriz[linha].length) {
+	        Celula celula = matriz[linha][coluna];
+	        if (!(celula.getBomba()) && celula instanceof CelulaVazia && !celula.getRevelado()) {
+	            celula.setRevelado(true);
 	            for (int l = linha - 1; l <= linha + 1; l++) {
 	                for (int c = coluna - 1; c <= coluna + 1; c++) {
 	                    if (l != linha || c != coluna) {
@@ -134,13 +117,10 @@ public class Campo {
 	                    }
 	                }
 	            }
-	        } 
-	        else {
-	            matriz[linha][coluna].getRevelado();
 	        }
 	    }
 	}
-	
+
 	
 	// Coloca Flag na célula solicitada
 	public void colocarFlag(int linha, int coluna) {
