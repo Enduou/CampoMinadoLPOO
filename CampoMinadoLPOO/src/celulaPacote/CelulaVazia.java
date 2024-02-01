@@ -16,6 +16,15 @@ public class CelulaVazia extends Celula {
 	public void setEstaVazio(boolean estaVazio) {
 		this.estaVazio = estaVazio;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		if(getRevelado() && !getFlag()) {
+			return "";
+		}else if (getFlag()){
+			return "=";
+		}else {
+			return "0";
+	 }
+	}
 }

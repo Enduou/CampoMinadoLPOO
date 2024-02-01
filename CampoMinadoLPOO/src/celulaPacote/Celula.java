@@ -29,6 +29,7 @@ public class Celula {
                 n++;
             }
         }
+        
         return n;
     }
 

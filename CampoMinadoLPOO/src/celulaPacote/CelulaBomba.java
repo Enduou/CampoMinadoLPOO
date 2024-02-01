@@ -20,6 +20,21 @@ public class CelulaBomba extends Celula {
 		this.temBomba = true;
 	}
 
-
+	@Override
+	public String toString() {
+		if (getRevelado() && checarBomba() && !getFlag()){
+			return "-1";
+			
+		}else if(getFlag()) {
+			return "=";
+		}else {
+			return "?";
+		}
+	}
 }
+		
+	
+ 
+
+
 

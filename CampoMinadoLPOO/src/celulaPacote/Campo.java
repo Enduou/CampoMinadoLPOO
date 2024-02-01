@@ -1,6 +1,7 @@
 package celulaPacote;
 
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Campo {
@@ -11,7 +12,9 @@ public class Campo {
     private int coluna = 7;
     private Celula[][] matriz;
     private int numMinas = 4;
- 
+    private boolean bomba;
+    private ArrayList<Campo> vizinhos;
+    
     //Construtor principal do código, gera o tabuleiro e com auxílio de outros métodos define cada célula
     public Campo() {
         matriz = new Celula[linha][coluna];
@@ -82,6 +85,11 @@ public class Campo {
 	
 	        if (matriz[l][c].colocarBomba()) {
 	            n--;    
+	         if(!(matriz[l][c] instanceof CelulaBomba)) {
+	        	 matriz[l][c] = new CelulaBomba();
+	         }
+	  
+	         
 	    
 	        }  
 	    }  
@@ -101,7 +109,10 @@ public class Campo {
 	    } else {
 	        System.out.println("Coordenadas invalidas.");
 	    }
+	    
 	}
+	
+	
 	
 	
 	
@@ -134,6 +145,26 @@ public class Campo {
 	      
 	            }
 	        } 
+	
+	
+	
+
+  
+
+    public void adicionarVizinhos(Celula vizinha) {
+        if (!vizinhos.contains(vizinha)) {
+            vizinhos.add(vizinha);
+        }
+    }
+
+    public int numMinasVizinhos() {
+        int n = 0;
+        for (CC vizinha : vizinhos) {
+            if (vizinha.bomba) {
+                n++;
+            }
+        }
+        
 	
 //Polimorfismo para incrementar os caracteres de espaço na formatação do tabuleiro 
 @Override
