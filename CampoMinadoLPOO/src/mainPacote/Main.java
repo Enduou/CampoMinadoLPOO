@@ -1,8 +1,9 @@
 package mainPacote;
+import celulaPacote.*;
+
 import java.util.Scanner;
 
 import celulaPacote.Campo;
-import celulaPacote.Jogador;
 
 public class Main {
 
@@ -52,7 +53,6 @@ public class Main {
 	
 	        // Aciona o método que verifica o conteúdo da célula na posição especificada
 	        c.descobrirCelula(linha, coluna);
-	        c.explodir(linha, coluna);
 	    }else if(escolhaUsuario==2) {
 	    	System.out.print("Digite o numero da linha: ");
 	        int linha = scanner.nextInt();
