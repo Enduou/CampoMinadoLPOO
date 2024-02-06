@@ -55,38 +55,29 @@ public class Campo {
 	}
 
 	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int escolha) {
-		linhaSelecionada--;
-		colunaSelecionada--;
-		
-		if(linhaSelecionada>= linha || linhaSelecionada < 0 || colunaSelecionada>= coluna || colunaSelecionada < 0) {
-			System.out.println("------------------------------------------------");
-			System.out.println("erro na escolha de posição, tente novamente");
-			System.out.println("------------------------------------------------");
-		}
+	    linhaSelecionada--;
+	    colunaSelecionada--;
 
-		
-		
-		else if (escolha == 0) {
-			explodir(linhaSelecionada, colunaSelecionada);
-			
-		if ((matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba)
-					&& (matriz[linhaSelecionada][colunaSelecionada].getRevelado())
-					&& (!matriz[linhaSelecionada][colunaSelecionada].getFlag())) {
-				System.out.println("voce perdeu");
-			} 
-			
-		else if (escolha == 1) {
-				if (!matriz[linhaSelecionada][colunaSelecionada].getFlag()) {
-					matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
-					matriz[linhaSelecionada][colunaSelecionada].revelar();
-				}
+	    if (linhaSelecionada >= linha || linhaSelecionada < 0 || colunaSelecionada >= coluna || colunaSelecionada < 0) {
+	        System.out.println("------------------------------------------------");
+	        System.out.println("erro na escolha de posição, tente novamente");
+	        System.out.println("------------------------------------------------");
+	    } else if (escolha == 0) {
+	        explodir(linhaSelecionada, colunaSelecionada);
 
-			}
-
-		}
-
+	        if ((matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba)
+	                && (matriz[linhaSelecionada][colunaSelecionada].getRevelado())
+	                && (!matriz[linhaSelecionada][colunaSelecionada].getFlag())) {
+	            System.out.println("você perdeu");
+	        }
+	    } else if (escolha == 1) {
+	        if (!matriz[linhaSelecionada][colunaSelecionada].getFlag()) {
+	            matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
+	            matriz[linhaSelecionada][colunaSelecionada].revelar();
+	            System.out.println(matriz[linhaSelecionada][colunaSelecionada].getFlag());
+	        }
+	    }
 	}
-
 	public int calcularBombas(int linhaB, int colunaB) {
 		int n = 0;
 		for (int l = linhaB - 1; l <= linhaB + 1; l++) {

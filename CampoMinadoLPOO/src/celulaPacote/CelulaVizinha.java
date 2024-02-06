@@ -23,7 +23,7 @@ public class CelulaVizinha extends Celula {
 		if(getRevelado() && !(getFlag())) {
 			return "";
 		}else if(getFlag()) {
-			return "";
+			return "=";
 		}else {
 			return "?";
 		}

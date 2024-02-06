@@ -40,6 +40,7 @@ public class Main {
 
 			c.selecaoUsuario(linha, coluna, escolha);
 			System.out.println(c);
+			
 
 			jogadorVez = (jogadorVez + 1) % 2;
 

@@ -30,6 +30,10 @@ public class Celula {
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
+	
+	public void adicionarflag() {
+		this.setFlag(true);
+	}
 
 	
 	
