@@ -24,7 +24,7 @@ public class CelulaVazia extends Celula {
 		}else if (getFlag()){
 			return "=";
 		}else {
-			return "0";
+			return "?";
 	 }
 	}
 }

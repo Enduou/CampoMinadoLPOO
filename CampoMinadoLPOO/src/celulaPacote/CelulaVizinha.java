@@ -1,31 +1,39 @@
 package celulaPacote;
 
-import java.util.ArrayList;
-
 public class CelulaVizinha extends Celula {
 
     //Lógica para verificação de adjacência usando arraylist
 	
-	private ArrayList<Celula> vizinhos;
+	private boolean vizinho;
 
     public CelulaVizinha() {
-        this.vizinhos = new ArrayList<>();
+        super();
     }
 
-    public void adicionarVizinhos(Celula a) {
-        this.vizinhos.add(a);
-    }
+    
+    
+    public boolean isVizinho() {
+		return vizinho;
+	}
 
-    public int numMinasVizinhos() {
-        int n = 0;
-        for (Celula a : this.vizinhos) {
-            if (a.getBomba()) {
-                n++;
-            }
-        }
-        return n;
-    }
 
-	
-	
+
+	@Override
+	public String toString() {
+		if(getRevelado() && !(getFlag())) {
+			return "";
+		}else if(getFlag()) {
+			return "";
+		}else {
+			return "?";
+		}
+		
+	}
 }
+
+
+
+	
+
+
+
