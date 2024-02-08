@@ -6,7 +6,8 @@ import excessaoPacote.AtributoException;
 
 public class Campo extends i implements iCampo {
 
-	private Celula [][] matriz;
+	protected Celula [][] matriz;
+	protected int bombasFlag;
 	
 	public Campo(int linha, int coluna, int bombas) {
 		i.linha = linha;
@@ -72,6 +73,10 @@ public class Campo extends i implements iCampo {
 	            matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
 	            matriz[linhaSelecionada][colunaSelecionada].revelar();
 	            System.out.println(matriz[linhaSelecionada][colunaSelecionada].getFlag());
+	            
+	            if(matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba) {
+	            	bombasFlag ++;
+	            }
 	        }
 	    }
 	}
