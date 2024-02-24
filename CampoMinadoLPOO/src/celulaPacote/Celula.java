@@ -35,11 +35,11 @@ public class Celula {
 		this.setFlag(true);
 	}
 	public void setCelulaMaluca(boolean b) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	public boolean getCelulaMaluca() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

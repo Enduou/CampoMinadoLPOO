@@ -12,7 +12,7 @@ public class CampoMaluco extends Campo {
 		super(linha, coluna, bombas);
 		this.setNumCelulasMalucas(numCelulasMalucas);
 		
-		// TODO Auto-generated constructor stubww
+		
 	}
 
 	public int getNumCelulasMalucas() {
@@ -65,7 +65,7 @@ public class CampoMaluco extends Campo {
 	    colunaSelecionada--;
 
 	    if (linhaSelecionada >= linha || linhaSelecionada < 0 || colunaSelecionada >= coluna || colunaSelecionada < 0) {
-	        // Lançando a exceção AtributoException com a mensagem apropriada
+	        
 	        throw new AtributoException("Erro na escolha de posição, tente novamente");
 	    } else if (escolha == 0) {
 	        explodir(linhaSelecionada, colunaSelecionada);

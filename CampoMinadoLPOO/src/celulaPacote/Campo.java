@@ -8,6 +8,7 @@ public class Campo extends i implements iCampo {
 
 	protected Celula [][] matriz;
 	protected int bombasFlag;
+	protected boolean jogoAtivo;
 	
 	public Campo(int linha, int coluna, int bombas) {
 		i.linha = linha;
@@ -34,6 +35,7 @@ public class Campo extends i implements iCampo {
 	
 
 	public void iniciarJogo() {
+		jogoAtivo = true;
 		matriz = new Celula[linha][coluna];
 
 		for (int l = 0; l < linha; l++) {
@@ -67,6 +69,7 @@ public class Campo extends i implements iCampo {
 	                && (matriz[linhaSelecionada][colunaSelecionada].getRevelado())
 	                && (!matriz[linhaSelecionada][colunaSelecionada].getFlag())) {
 	            System.out.println("Você perdeu");
+	            jogoAtivo = false;
 	        }
 	    } else if (escolha == 1) {
 	        if (!matriz[linhaSelecionada][colunaSelecionada].getFlag()) {
