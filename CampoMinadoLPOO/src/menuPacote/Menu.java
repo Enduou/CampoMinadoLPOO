@@ -22,7 +22,10 @@ public class Menu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.BLACK); 
         setLayout(new GridLayout(4, 1, 10, 10)); 
+        this.setSize(500,500);
+        this.setResizable(false);
 
+        
        
         Font buttonFont = new Font("Arial", Font.BOLD, 16);
         Color buttonColor = Color.BLACK;
@@ -232,5 +235,7 @@ public class Menu extends JFrame {
         setLocationRelativeTo(null); 
         setVisible(true);
     }
+    
+    
 
 }

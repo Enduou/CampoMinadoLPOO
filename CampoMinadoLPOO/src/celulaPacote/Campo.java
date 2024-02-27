@@ -2,23 +2,42 @@ package celulaPacote;
 
 import java.util.Random;
 
-import excessaoPacote.AtributoException;
+import javax.management.InvalidAttributeValueException;
 
-public class Campo extends i implements iCampo {
+public class Campo  implements iCampo, InterfaceCampo {
 
 	protected Celula [][] matriz;
 	protected int bombasFlag;
 	protected boolean jogoAtivo;
+	protected int linha;
+	protected int coluna;
+	protected int bombas;
 	
 	public Campo(int linha, int coluna, int bombas) {
-		i.linha = linha;
-		i.coluna = coluna;
-		i.bombas = bombas;
+		this.linha = linha;
+		this.coluna = coluna;
+		this.bombas = bombas;
 	}
 	// Construtor principal do código, gera o tabuleiro e com auxílio de outros
 	// métodos define cada célula
-
-	public void adicionarBomba() {
+	
+	public int getLinha() {
+		return linha;
+	}
+	
+	public int getColuna() {
+		return coluna;
+	}
+	public Celula[][]getMatriz() {
+		return this.matriz;
+	}
+	public void adicionarBomba() throws InvalidAttributeValueException  {
+		
+		if (bombas > (linha * coluna)) {
+	        throw new InvalidAttributeValueException("N�mero de bombas maior do que o n�mero total de c�lulas no tabuleiro.");
+	    }
+		bombasFlag = 0;
+		
 
 		Random rand = new Random();
 		int n = bombas;
@@ -34,7 +53,7 @@ public class Campo extends i implements iCampo {
 		}
 	
 
-	public void iniciarJogo() {
+	public void iniciarJogo()  {
 		jogoAtivo = true;
 		matriz = new Celula[linha][coluna];
 
@@ -43,7 +62,12 @@ public class Campo extends i implements iCampo {
 				matriz[l][c] = new CelulaVizinha();
 			}
 		}
-		adicionarBomba();
+		try {
+			adicionarBomba();
+		} catch (InvalidAttributeValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// aqui teria o metodo de adci
 
 		for (int l = 0; l < linha; l++) {
@@ -55,13 +79,12 @@ public class Campo extends i implements iCampo {
 		}
 	}
 
-	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int escolha) throws AtributoException {
+	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int escolha)  {
 	    linhaSelecionada--;
 	    colunaSelecionada--;
 
 	    if (linhaSelecionada >= linha || linhaSelecionada < 0 || colunaSelecionada >= coluna || colunaSelecionada < 0) {
-	        // Lançando a exceção AtributoException com a mensagem apropriada
-	        throw new AtributoException("Erro na escolha de posição, tente novamente");
+	        
 	    } else if (escolha == 0) {
 	        explodir(linhaSelecionada, colunaSelecionada);
 
@@ -118,6 +141,7 @@ public class Campo extends i implements iCampo {
 		}
 	}
 
+	
 //Polimorfismo para incrementar os caracteres de espaço na formatação do tabuleiro 
 	@Override
 	public String toString() {
@@ -135,5 +159,6 @@ public class Campo extends i implements iCampo {
 		}
 		return str;
 	}
+
 
 }

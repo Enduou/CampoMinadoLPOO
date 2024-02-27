@@ -2,7 +2,7 @@ package celulaPacote;
 
 import java.util.Random;
 
-import excessaoPacote.AtributoException;
+import javax.management.InvalidAttributeValueException;
 
 public class CampoMaluco extends Campo {
 	
@@ -32,7 +32,12 @@ public class CampoMaluco extends Campo {
 			}
 		}
 		
-		adicionarBomba();
+		try {
+			adicionarBomba();
+		} catch (InvalidAttributeValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		inserirCelulaMaluca();
 		
 		for (int l = 0; l < linha; l++) {
@@ -60,13 +65,13 @@ public class CampoMaluco extends Campo {
 		
 	}
 	
-	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int escolha) throws AtributoException {
+	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int escolha) {
 	    linhaSelecionada--;
 	    colunaSelecionada--;
 
 	    if (linhaSelecionada >= linha || linhaSelecionada < 0 || colunaSelecionada >= coluna || colunaSelecionada < 0) {
 	        
-	        throw new AtributoException("Erro na escolha de posição, tente novamente");
+	        System.out.println("erro na escolha de posição, tente novamente"); 
 	    } else if (escolha == 0) {
 	        explodir(linhaSelecionada, colunaSelecionada);
 
