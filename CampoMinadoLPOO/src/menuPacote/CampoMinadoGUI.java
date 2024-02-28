@@ -56,6 +56,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 				painelTabuleiro.add(botao);
 				botoes[i][j] = botao;
+				
+				botao.setBackground(new Color(245,255,250));
+
 
 				final int linhaGui = i;
 				final int colunaGui = j;
@@ -152,9 +155,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 					public void mouseEntered(MouseEvent e) {
 					    //hover on
 					    if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(0, 0, 200));
+					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,255));
 					    } else {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(0, 0, 3));
+					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,235));
 					    }
 					}
 
@@ -162,9 +165,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 					public void mouseExited(MouseEvent e) {
 					    //hover off
 					    if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(0, 0, 40));
+					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,255));
 					    } else {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(0, 0, 3));
+					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,235));
 					    }
 					}
 				});
@@ -174,7 +177,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 		
-		JDialog infoDialog = new JDialog(this, "Informações do Jogador", false);
+		/*JDialog infoDialog = new JDialog(this, "Informações do Jogador", false);
 		infoDialog.setSize(482, 60);
 		infoDialog.setResizable(false);
 		infoDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -218,11 +221,15 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		int dialogX = mainFrameX;
 		int dialogY = mainFrameY + mainFrameHeight;
 		infoDialog.setLocation(dialogX + 9, dialogY - 6);
+		
 
 		infoDialog.setResizable(false);
 		infoDialog.setUndecorated(true);
 		infoDialog.setVisible(true);
+		*/
+
 	}
+	
 
 	private boolean flagsCorretas() {
 		for (int i = 0; i < campo.getLinha(); i++) {
@@ -253,9 +260,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 						int bombasAoRedor = campo.calcularBombas(i, j);
 						botoes[i][j].setText(Integer.toString(bombasAoRedor));
 					}
-					botoes[i][j].setBackground(new Color(0, 0, 20));
+					botoes[i][j].setBackground(new Color(240,255,255));
 				} else {
-					botoes[i][j].setBackground(new Color(0, 0, 40));
+					botoes[i][j].setBackground(new Color(240,255,255));
 				}
 			}
 		}

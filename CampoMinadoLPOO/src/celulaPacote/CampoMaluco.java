@@ -4,7 +4,7 @@ import java.util.Random;
 
 import javax.management.InvalidAttributeValueException;
 
-public class CampoMaluco extends Campo {
+public class CampoMaluco extends Campo implements InterfaceCampo {
 	
 	private int numCelulasMalucas;
 

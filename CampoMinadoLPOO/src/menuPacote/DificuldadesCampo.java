@@ -37,7 +37,7 @@ public class DificuldadesCampo extends JFrame implements ActionListener {
 		MatteBorder labelBorder = BorderFactory.createMatteBorder(0, 0, 4, 0, new Color(100, 200, 200));
 		JLabel label = new JLabel("Campo Minado");
 		label.setForeground(new Color(150, 150, 150));
-		label.setFont(new Font("Arial", Font.BOLD, 33));
+		label.setFont(new Font("Arialxz", Font.BOLD, 33));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		textPanel.setBackground(new Color(220, 220, 220));
