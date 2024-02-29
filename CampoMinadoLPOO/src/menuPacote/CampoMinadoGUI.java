@@ -34,7 +34,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		this.setSize(800, 800);
-		this.setResizable(false);
+		this.setResizable(true);
 
 		painelTabuleiro = new JPanel(new GridLayout(campo.getLinha(), campo.getColuna()));
 		botoes = new JButton[campo.getLinha()][campo.getColuna()];
@@ -45,6 +45,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		setVisible(true);
 
 	}
+	
 	
 	
 	private void inicializarTabuleiro() {
@@ -155,9 +156,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 					public void mouseEntered(MouseEvent e) {
 					    //hover on
 					    if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,255));
+//					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,255));
 					    } else {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,235));
+//					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,235));
 					    }
 					}
 
@@ -165,9 +166,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 					public void mouseExited(MouseEvent e) {
 					    //hover off
 					    if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,255));
+//					        botoes[linhaGui][colunaGui].setBackground(new Color(245,255,250));
 					    } else {
-					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,235));
+//					        botoes[linhaGui][colunaGui].setBackground(new Color(245,255,250));
 					    }
 					}
 				});
@@ -177,57 +178,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 		
-		/*JDialog infoDialog = new JDialog(this, "Informações do Jogador", false);
-		infoDialog.setSize(482, 60);
-		infoDialog.setResizable(false);
-		infoDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		infoDialog.setLayout(new GridLayout(3, 1, 0, 0));
-		infoDialog.getContentPane().setBackground(new Color(30, 30, 80)); 
-		Border border = BorderFactory.createLineBorder(new Color(0, 150, 250), 2); 
-		infoDialog.getRootPane().setBorder(border);
-
-		// Label para exibir o nome e o score do primeiro player
-		JLabel infoLabel1 = new JLabel("Jogador 1: " ); // Alterei o nome do jogador
-		JLabel infoLabel1Score = new JLabel("Pontuação: " ); // Alterei o nome do método e da variável
-		infoLabel1.setForeground(new Color(250, 250, 250));
-		infoLabel1Score.setForeground(new Color(250, 250, 250));
-		infoLabel1.setFont(new Font("Verdana", Font.BOLD, 15));
-		infoLabel1Score.setFont(new Font("Verdana", Font.BOLD, 15));
-
-		// Label para exibir o nome e o score do segundo player
-		JLabel infoLabel2 = new JLabel("Jogador 2: " ); // Alterei o nome do jogador
-		JLabel infoLabel2Score = new JLabel("Pontuação: " ); // Alterei o nome do método e da variável
-		infoLabel2.setForeground(new Color(250, 250, 250));
-		infoLabel2Score.setForeground(new Color(250, 250, 250));
-		infoLabel2.setFont(new Font("Verdana", Font.BOLD, 15));
-		infoLabel2Score.setFont(new Font("Verdana", Font.BOLD, 15));
-
-		// Label para exibir a vez de quem é
-		JLabel currentPlayerLabel = new JLabel("VEZ DE: " ); // Alterei o nome do jogador
-		currentPlayerLabel.setForeground(new Color(250, 250, 250));
-		currentPlayerLabel.setFont(new Font("Verdana", Font.BOLD, 10));
-
-		infoDialog.add(infoLabel1);
-		infoDialog.add(infoLabel1Score);
-		infoDialog.add(infoLabel2);
-		infoDialog.add(infoLabel2Score);
-		infoDialog.add(currentPlayerLabel, BorderLayout.EAST);
-
-		// Posicionando o JDialog abaixo da janela principal
-		int mainFrameX = this.getLocation().x;
-		int mainFrameY = this.getLocation().y;
-		int mainFrameHeight = this.getHeight();
-
-		int dialogX = mainFrameX;
-		int dialogY = mainFrameY + mainFrameHeight;
-		infoDialog.setLocation(dialogX + 9, dialogY - 6);
 		
-
-		infoDialog.setResizable(false);
-		infoDialog.setUndecorated(true);
-		infoDialog.setVisible(true);
-		*/
-
 	}
 	
 
@@ -254,13 +205,13 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 				if (campo.getMatriz()[i][j].getRevelado()) {
 					if (campo.getMatriz()[i][j] instanceof CelulaBomba && !campo.getMatriz()[i][j].getFlag()) {
 						botoes[i][j].setText("X");
-					} else if (campo.getMatriz()[i][j] instanceof CelulaBomba && !campo.getMatriz()[i][j].getFlag()) {
-						botoes[i][j].setText("");
 					} else if (campo.getMatriz()[i][j] instanceof CelulaVazia && !campo.getMatriz()[i][j].getFlag()) {
+						botoes[i][j].setText("");
+					} else if (campo.getMatriz()[i][j] instanceof CelulaVizinha && !campo.getMatriz()[i][j].getFlag()) {
 						int bombasAoRedor = campo.calcularBombas(i, j);
 						botoes[i][j].setText(Integer.toString(bombasAoRedor));
 					}
-					botoes[i][j].setBackground(new Color(240,255,255));
+					botoes[i][j].setBackground(new Color(240,255,233));
 				} else {
 					botoes[i][j].setBackground(new Color(240,255,255));
 				}
@@ -274,7 +225,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	        public void run() {
 	            
 	        
-	            new CampoMinadoGUI(new CampoMedio(8,8,5));
+	            new CampoMinadoGUI(new CampoMedio(8,8,8));
 	        }
 	    });
 	}
