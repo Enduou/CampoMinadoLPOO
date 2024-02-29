@@ -58,6 +58,8 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 				painelTabuleiro.add(botao);
 				botoes[i][j] = botao;
 				
+				bombas = campo.getBombas();
+				
 				botao.setBackground(new Color(245,255,250));
 
 
@@ -95,7 +97,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 							atualizarBotoes();
 
-							// falta fazer o game over
+							jogoPerdido();
 
 						} else if ((campo.getMatriz()[linhaGuiClicada][colunaGuiClicada] instanceof CelulaVazia)
 								&& (!campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getFlag())) {
@@ -127,9 +129,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 									}
 									// colocar imagem da flag
 									// setar configuracoes da imagem
-
+									botoes[linhaGui][colunaGui].setText("=");
 									if ((bombasFlag == bombas) && flagsCorretas()) {
-										// fazer metodo vencedor
+										jogoVencido();
 									}
 								}
 								else {
@@ -178,6 +180,10 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 		
+		System.out.println(campo.getBombas());
+		System.out.println(bombasFlag);
+		System.out.println(flagsCorretas());
+		
 		
 	}
 	
@@ -186,7 +192,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		for (int i = 0; i < campo.getLinha(); i++) {
 			for (int j = 0; j < campo.getColuna(); j++) {
 				if (campo.getMatriz()[i][j] instanceof CelulaBomba) {
-					if (campo.getMatriz()[i][j].getFlag()) {
+					if (!campo.getMatriz()[i][j].getFlag()) {
 						return false;
 					}
 				} else {
@@ -219,13 +225,67 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		}
 
 	}
+	private void jogoVencido() {
+	    JDialog gameWinDialog = new JDialog(this, "Parabéns, Você Venceu!", true);
+	    gameWinDialog.setSize(300, 150);
+	    gameWinDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    gameWinDialog.setLayout(new BorderLayout());
 
+	    JLabel parabensLabel = new JLabel("Parabéns! Você venceu o jogo!", SwingConstants.CENTER);
+	    gameWinDialog.add(parabensLabel, BorderLayout.CENTER);
+
+	    Timer timer = new Timer(4000, new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Ação a ser realizada após 4 segundos
+	            dispose();
+	          
+	            new Menu(); // Método para retornar ao menu principal
+	            
+	        }
+	    });
+
+	    timer.setRepeats(false); 
+	    timer.start();           
+	    
+
+	    gameWinDialog.setLocationRelativeTo(this);
+	    gameWinDialog.setVisible(true);
+	}
+
+	
+	private void jogoPerdido() {
+	    JDialog gameLostDialog = new JDialog(this, "Game Over", true);
+	    gameLostDialog.setSize(300, 150);
+	    gameLostDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    gameLostDialog.setLayout(new BorderLayout());
+
+	    JLabel gameOverLabel = new JLabel("Game Over! Você perdeu o jogo.", SwingConstants.CENTER);
+	    gameLostDialog.add(gameOverLabel, BorderLayout.CENTER);
+
+	    Timer timer = new Timer(4000, new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            
+	            dispose(); 
+	            new Menu();
+	        }
+	    });
+
+	    timer.setRepeats(false);
+	    timer.start();           
+
+	    gameLostDialog.setLocationRelativeTo(this);
+	    gameLostDialog.setVisible(true);
+	}
+
+	
 	public static void main(String[] args) {
 	    SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
-	            
+	           
 	        
-	            new CampoMinadoGUI(new CampoMedio(8,8,8));
+	        	new CampoMinadoGUI(new CampoMedio(8,8,1));
 	        }
 	    });
 	}

@@ -18,9 +18,10 @@ public class Campo  implements iCampo, InterfaceCampo {
 		this.coluna = coluna;
 		this.bombas = bombas;
 	}
-	// Construtor principal do código, gera o tabuleiro e com auxílio de outros
-	// métodos define cada célula
 	
+	public int getBombas() {
+		return bombas;
+	}
 	public int getLinha() {
 		return linha;
 	}

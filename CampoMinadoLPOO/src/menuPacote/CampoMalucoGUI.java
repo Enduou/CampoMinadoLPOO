@@ -42,7 +42,10 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 		this.setResizable(false);
 
 		this.setLayout(new GridLayout(campo.getLinha(), campo.getColuna()));
+		
 		botao = new JButton[campo.getLinha()][campo.getColuna()];
+		
+		bombas = campo.getBombas();
 		
 		for (int i = 0; i < campo.getLinha(); i++) {
 			for (int j = 0; j < campo.getColuna(); j++) {
@@ -131,7 +134,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 //	                                        Image scaledImage = flagIcon.getImage().getScaledInstance(botao[linhaGui][colunaGui].getWidth(), botao[linhaGui][colunaGui].getHeight(), Image.SCALE_SMOOTH);
 //	                                        flagIcon = new ImageIcon(scaledImage);
 //	                                        botao[linhaGui][colunaGui].setIcon(flagIcon);
-
+	                                        
 	                                        campo.identificadorCelulaMaluca(linhaGui, colunaGui);
 	                                        campo.getMatriz()[linhaGui][colunaGui].revelar();
 	                                        atualizarBotoes();
@@ -151,8 +154,8 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 
 //	                                        ImageIcon flagIcon = new ImageIcon(flagImage.getImage());
 //	                                        Image scaledImage = flagIcon.getImage().getScaledInstance(botao[linhaGui][colunaGui].getWidth(), botao[linhaGui][colunaGui].getHeight(), Image.SCALE_SMOOTH);
-//	                                        flagIcon = new ImageIcon(scaledImage);
-//	                                        botao[linhaGui][colunaGui].setIcon(flagIcon);
+	//	                                        flagIcon = new ImageIcon(scaledImage);
+	                                        botao[linhaGui][colunaGui].setText("BUNDA");
 
 	                                        atualizarBotoes();
 
