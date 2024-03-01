@@ -32,15 +32,15 @@ public class DificuldadesCampo extends JFrame implements ActionListener {
 		this.setLayout(new BorderLayout());
 		this.setSize(500, 500);
 		this.setResizable(false);
-		this.getContentPane().setBackground(new Color(0, 0, 50));
+		this.getContentPane().setBackground(new Color(0, 0, 0));
 
-		MatteBorder labelBorder = BorderFactory.createMatteBorder(0, 0, 4, 0, new Color(100, 200, 200));
+		MatteBorder labelBorder = BorderFactory.createMatteBorder(0, 0, 4, 0, new Color(0, 128, 0));
 		JLabel label = new JLabel("Campo Minado");
-		label.setForeground(new Color(150, 150, 150));
+		label.setForeground(new Color(0, 255, 0));
 		label.setFont(new Font("Arialxz", Font.BOLD, 33));
 		label.setHorizontalAlignment(JLabel.CENTER);
 		JPanel textPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		textPanel.setBackground(new Color(220, 220, 220));
+		textPanel.setBackground(new Color(0, 0, 0));
 		textPanel.setBorder(labelBorder);
 		textPanel.add(label);
 
@@ -48,12 +48,12 @@ public class DificuldadesCampo extends JFrame implements ActionListener {
 
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new GridLayout(4, 1, 10, 10));
-		centerPanel.setBackground(new Color(240, 240, 240));
+		centerPanel.setBackground(new Color(0, 0, 0));
 
-		easyButton = createStyledButton("Modo Facil", new Color(173, 216, 230), new Color(70, 130, 180));
-		mediumButton = createStyledButton("Modo Medio", new Color(255, 228, 196), new Color(210, 105, 30));
-		hardButton = createStyledButton("Modo Dificil", new Color(240, 128, 128), new Color(178, 34, 34));
-		backButton = createStyledButton("Back", new Color(240, 248, 255), new Color(0, 0, 128));
+		easyButton = createStyledButton("Modo Facil", new Color(0, 128, 0), new Color(0, 255, 0));
+		mediumButton = createStyledButton("Modo Medio", new Color(0, 128, 0), new Color(0, 255, 0));
+		hardButton = createStyledButton("Modo Dificil", new Color(0, 128, 0), new Color(0, 255, 0));
+		backButton = createStyledButton("Back", new Color(0, 128, 0), new Color(0, 255, 0));
 
 		easyButton.addActionListener(this);
 		mediumButton.addActionListener(this); 
@@ -96,16 +96,6 @@ public class DificuldadesCampo extends JFrame implements ActionListener {
 			return null;
 		}
 
-	}
-
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-
-				new DificuldadesCampo().setVisible(true);
-				;
-			}
-		});
 	}
 
 	@Override

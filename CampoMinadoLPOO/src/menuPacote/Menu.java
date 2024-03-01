@@ -42,48 +42,16 @@ public class Menu extends JFrame {
         novoJogoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
-            	Scanner scanner = new Scanner(System.in);
-                System.out.println("Digite seu nome: ");
-                String nomeJogador1 = scanner.next();
-                
-                // Criação de Jogador
-                Jogador[] jogador = new Jogador[2];
-                jogador[0] = new Jogador(nomeJogador1, 0);
-                
-                iCampo c;
-                c = new Campo(i.linha, i.coluna, i.bombas);
-                
-                c.iniciarJogo(); // Inicia o jogo
-                
-                System.out.println("Campo Inicial:");
-                System.out.println(c);
+            	SwingUtilities.invokeLater(new Runnable() {
+        			public void run() {
 
-                int jogadorVez = 0;
-                boolean jogoEmAndamento = true;
-
-                while (jogoEmAndamento) {
-                    System.out.println(jogador[jogadorVez].getNome() + "");
-                    System.out.println();
-                    System.out.println("Digite a linha:");
-                    int linha = scanner.nextInt();
-                    System.out.println("Digite a coluna:");
-                    int coluna = scanner.nextInt();
-                    System.out.println("Para Revelar a Casa, (DIGITE 0) Para adicionar bandeira, (DIGITE 1)");
-                    int escolha = scanner.nextInt();
-                    System.out.println();
-
-                    try {
-                        c.selecaoUsuario(linha, coluna, escolha);
-                    } catch (AtributoException err) {
-                        err.printStackTrace();
-                    }
-                    System.out.println(c);
-
-                }
-
-                scanner.close();
-            }
+        				new DificuldadesCampo().setVisible(true);
+        				;
+        			}
+        		});
+            	
             
+            }   
         });
         add(novoJogoButton);
         
@@ -155,51 +123,15 @@ public class Menu extends JFrame {
         minadoMalucoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
-            	Scanner scanner = new Scanner(System.in);
-                System.out.println("Primeiro Jogador: ");
-                String nomeJogador1 = scanner.next();
-                System.out.println("Segundo Jogador: ");
-                String nomeJogador2 = scanner.next();
-                
-                // Criação de Jogadores
-                Jogador[] jogadores = new Jogador[2];
-                jogadores[0] = new Jogador(nomeJogador1, 0);
-                jogadores[1] = new Jogador(nomeJogador2, 0);
-                
-                iCampo c;
-                c = new CampoMaluco(i.linha, i.coluna, i.bombas, 2);
-                c.iniciarJogo(); // Inicia o jogo
-                
-                System.out.println("Campo Maluco Inicial:");
-                System.out.println(c);
-
-                int jogadorVez = 0;
-                boolean jogoEmAndamento = true;
-
-                while (jogoEmAndamento) {
-                    System.out.println(jogadores[jogadorVez].getNome() + ", sua vez");
-                    System.out.println();
-                    System.out.println("Digite a linha:");
-                    int linha = scanner.nextInt();
-                    System.out.println("Digite a coluna:");
-                    int coluna = scanner.nextInt();
-                    System.out.println("Para Revelar a Casa, (DIGITE 0) Para adicionar bandeira, (DIGITE 1)");
-                    int escolha = scanner.nextInt();
-                    System.out.println();
-
-                    try {
-                        c.selecaoUsuario(linha, coluna, escolha);
-                    } catch (AtributoException err) {
-                        err.printStackTrace();
-                    }
-                    System.out.println(c);
-
-                    jogadorVez = (jogadorVez + 1) % 2;
-                }
-
-                scanner.close();
+            	SwingUtilities.invokeLater(new Runnable() {
+        	        public void run() {
+        	            
+        	        
+        	            new CampoMalucoGUI(new CampoMaluco(8,8,5,6));
+        	        }
+        	    });
+            	
             }
-         
         });
         add(minadoMalucoButton);
 

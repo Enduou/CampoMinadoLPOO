@@ -51,10 +51,10 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 			for (int j = 0; j < campo.getColuna(); j++) {
 				botao[i][j] = new JButton();
 				botao[i][j].setFocusable(false);
-				botao[i][j].setFont(new Font("Arial", Font.BOLD, 18));
-				botao[i][j].setBackground(new Color(0, 0, 3));
-				botao[i][j].setForeground(new Color(0, 0, 128));
-				botao[i][j].setBorder(BorderFactory.createLineBorder(new Color(0, 102, 204), 3));
+				botao[i][j].setFont(new Font("Arial", Font.BOLD, 20));
+				botao[i][j].setBackground(new Color(0, 0, 128));
+				botao[i][j].setForeground(new Color(0, 255, 0));
+				botao[i][j].setBorder(BorderFactory.createLineBorder(new Color(0, 128, 0), 3));
 				botao[i][j].setLayout(new BorderLayout());
 				
 				
@@ -121,11 +121,11 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 				botao[i][j].addMouseListener((MouseListener) new MouseAdapter() {
 					 @Override
 	                    public void mouseClicked(MouseEvent e) {
-	                        //verificando se é um clique com o botão direito
+	                        //verificando se ï¿½ um clique com o botï¿½o direito
 	                        if (e.getButton() == MouseEvent.BUTTON3) {
 	                            if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
 	                                if (!campo.getMatriz()[linhaGui][colunaGui].getFlag()) {
-	                                	//verificando se a célula é maluca para fazer a lógica
+	                                	//verificando se a cï¿½lula ï¿½ maluca para fazer a lï¿½gica
 	                                    if(campo.getMatriz()[linhaGui][colunaGui].getCelulaMaluca()) {
 	                                        campo.getMatriz()[linhaGui][colunaGui].setFlag(true);
 	                                        campo.getMatriz()[linhaGui][colunaGui].revelar();
@@ -143,7 +143,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	                                            bombasFlag--;
 	                                        }
 	                                        
-	                                        //exibindo a vitória em caso de retornar true
+	                                        //exibindo a vitï¿½ria em caso de retornar true
 	                                        if (flagsCorretas()) {
 //	                                            gameWin(currentPlayer);
 	                                        }
@@ -155,7 +155,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 //	                                        ImageIcon flagIcon = new ImageIcon(flagImage.getImage());
 //	                                        Image scaledImage = flagIcon.getImage().getScaledInstance(botao[linhaGui][colunaGui].getWidth(), botao[linhaGui][colunaGui].getHeight(), Image.SCALE_SMOOTH);
 	//	                                        flagIcon = new ImageIcon(scaledImage);
-	                                        botao[linhaGui][colunaGui].setText("BUNDA");
+	                                        botao[linhaGui][colunaGui].setText("F");
 
 	                                        atualizarBotoes();
 
@@ -235,28 +235,35 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	}
 
 	public void atualizarBotoes() {
-		for (int i = 0; i < botao.length; i++) {
-			for (int j = 0; j < botao[i].length; j++) {
-				if (campo.getMatriz()[i][j].getRevelado()) {
-					if (campo.getMatriz()[i][j] instanceof CelulaBomba && !campo.getMatriz()[i][j].getFlag()) {
-						botao[i][j].setText("X");
-					} else if (campo.getMatriz()[i][j] instanceof CelulaVazia && !campo.getMatriz()[i][j].getFlag()) {
-						botao[i][j].setText("");
-					} else if (campo.getMatriz()[i][j] instanceof CelulaVizinha && !campo.getMatriz()[i][j].getFlag()) {
-						int bombasAoRedor = campo.calcularBombas(i, j);
-						botao[i][j].setText(Integer.toString(bombasAoRedor));
-					}
-					// escurecendo botão se tiver selecionado
-					botao[i][j].setBackground(new Color(0, 0, 3));
-				} else {
-					// clareando botão se não tiver selecionado
-					botao[i][j].setBackground(new Color(0, 0, 40));
-				}
-			}
-
-		}
-
+	    for (int i = 0; i < botao.length; i++) {
+	        for (int j = 0; j < botao[i].length; j++) {
+	            if (campo.getMatriz()[i][j].getRevelado()) {
+	                if (campo.getMatriz()[i][j] instanceof CelulaBomba && !campo.getMatriz()[i][j].getFlag()) {
+	                    botao[i][j].setText("X");
+	                } else if (campo.getMatriz()[i][j] instanceof CelulaVazia && !campo.getMatriz()[i][j].getFlag()) {
+	                    botao[i][j].setText("null");
+	                } else if (campo.getMatriz()[i][j] instanceof CelulaVizinha && !campo.getMatriz()[i][j].getFlag()) {
+	                    int bombasAoRedor = campo.calcularBombas(i, j);
+	                    botao[i][j].setText(Integer.toString(bombasAoRedor));
+	                }
+	                botao[i][j].setForeground(new Color(0, 255, 0)); 
+	                botao[i][j].setBackground(new Color(0, 0, 0)); 
+	            } else {
+	                // Para botÃµes com flag
+	                if(campo.getMatriz()[i][j].getFlag()) {
+	                    botao[i][j].setText("F"); 
+	                    botao[i][j].setForeground(new Color(0, 255, 0)); 
+	                } else {
+	                    botao[i][j].setText("");
+	                }
+	                botao[i][j].setBackground(new Color(0, 0, 0)); 
+	                botao[i][j].setForeground(new Color(0, 255, 0)); 
+	            }
+	        }
+	    }
 	}
+
+	
 	private boolean flagsCorretas() {
 		for (int i = 0; i < campo.getLinha(); i++) {
 			for (int j = 0; j < campo.getColuna(); j++) {
@@ -274,19 +281,11 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 		return true;
 	}
 
-	public static void main(String[] args) {
-	    SwingUtilities.invokeLater(new Runnable() {
-	        public void run() {
-	            
-	        
-	            new CampoMalucoGUI(new CampoMaluco(8,8,5,6));
-	        }
-	    });
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		// TODO Auto-generated method stub
+		
 	}
+
 
 }
