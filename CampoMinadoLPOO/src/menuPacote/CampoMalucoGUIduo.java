@@ -27,7 +27,7 @@ import celulaPacote.CelulaBomba;
 import celulaPacote.CelulaVazia;
 import celulaPacote.CelulaVizinha;
 
-public class CampoMalucoGUI extends JFrame implements ActionListener {
+public class CampoMalucoGUIduo extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	    return new ImageIcon(imagem);
 	}
 	
-	public CampoMalucoGUI(CampoMaluco campo) {
+	public CampoMalucoGUIduo(CampoMaluco campo) {
 		this.campo = campo;
 		
 		campo.iniciarJogo();

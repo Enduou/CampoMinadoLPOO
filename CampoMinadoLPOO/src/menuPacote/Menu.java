@@ -2,37 +2,28 @@ package menuPacote;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-
-import celulaPacote.Campo;
-import celulaPacote.CampoMaluco;
-import celulaPacote.Jogador;
-import celulaPacote.i;
-import celulaPacote.iCampo;
-import excessaoPacote.AtributoException;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 
 public class Menu extends JFrame {
-    public Menu() {
-        
-    	setTitle("Campo Minado");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setBackground(Color.BLACK); 
-        setLayout(new GridLayout(5, 1, 10, 10)); // 
-        this.setSize(500, 500); 
-        this.setResizable(false);
+ static final long serialVersionUID = 1L;
 
-      
+	public Menu() {
+
+        setTitle("Campo Minado");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.BLACK);
+        setLayout(new GridLayout(0, 1, 10, 10));
+        setSize(500, 500);
+        setResizable(false);
+
         Font buttonFont = new Font("Arial", Font.BOLD, 16);
         Color buttonColor = Color.BLACK;
         Color textColor = Color.GREEN;
         Border buttonBorder = BorderFactory.createLineBorder(textColor, 2);
 
-        
-        JButton novoJogoButton = new JButton("Novo Jogo");
+        JButton novoJogoButton = new JButton("Campo Minado");
         novoJogoButton.setFont(buttonFont);
         novoJogoButton.setForeground(textColor);
         novoJogoButton.setBackground(buttonColor);
@@ -40,78 +31,14 @@ public class Menu extends JFrame {
         novoJogoButton.setFocusPainted(false);
         novoJogoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	
-            	SwingUtilities.invokeLater(new Runnable() {
-        			public void run() {
-
-        				new DificuldadesCampo().setVisible(true);
-        				;
-        			}
-        		});
-            	
-            
-            }   
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        new DificuldadesCampo().setVisible(true);
+                    }
+                });
+            }
         });
         add(novoJogoButton);
-        
-        JButton doisJogadoresButton = new JButton("Dois Jogadores");
-        doisJogadoresButton.setFont(buttonFont);
-        doisJogadoresButton.setForeground(textColor);
-        doisJogadoresButton.setBackground(buttonColor);
-        doisJogadoresButton.setBorder(buttonBorder);
-        doisJogadoresButton.setFocusPainted(false);
-        doisJogadoresButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                	
-                	Scanner scanner = new Scanner(System.in);
-                    System.out.println("Primeiro Jogador: ");
-                    String nomeJogador1 = scanner.next();
-                    System.out.println("Segundo Jogador: ");
-                    String nomeJogador2 = scanner.next();
-                    
-                    // Criação de Jogadores
-                    Jogador[] jogadores = new Jogador[2];
-                    jogadores[0] = new Jogador(nomeJogador1, 0);
-                    jogadores[1] = new Jogador(nomeJogador2, 0);
-                    
-                    iCampo c;
-                    c = new Campo(i.linha, i.coluna, i.bombas);
-                    
-                    c.iniciarJogo(); // Inicia o jogo
-                    
-                    System.out.println("Campo Inicial:");
-                    System.out.println(c);
-
-                    int jogadorVez = 0;
-                    boolean jogoEmAndamento = true;
-
-                    while (jogoEmAndamento) {
-                        System.out.println(jogadores[jogadorVez].getNome() + ", sua vez");
-                        System.out.println();
-                        System.out.println("Digite a linha:");
-                        int linha = scanner.nextInt();
-                        System.out.println("Digite a coluna:");
-                        int coluna = scanner.nextInt();
-                        System.out.println("Para Revelar a Casa, (DIGITE 0) Para adicionar bandeira, (DIGITE 1)");
-                        int escolha = scanner.nextInt();
-                        System.out.println();
-
-                        try {
-                            c.selecaoUsuario(linha, coluna, escolha);
-                        } catch (AtributoException err) {
-                            err.printStackTrace();
-                        }
-                        System.out.println(c);
-
-                        jogadorVez = (jogadorVez + 1) % 2;
-                    }
-
-                    scanner.close();
-                }
-            	
-        });    
-        add(doisJogadoresButton);
-       
         
         JButton minadoMalucoButton = new JButton("Campo Minado Maluco");
         minadoMalucoButton.setFont(buttonFont);
@@ -121,21 +48,52 @@ public class Menu extends JFrame {
         minadoMalucoButton.setFocusPainted(false);
         minadoMalucoButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	
-            	SwingUtilities.invokeLater(new Runnable() {
-        	        public void run() {
-        	            
-        	        
-        	            new CampoMalucoGUI(new CampoMaluco(8,8,5,6));
-        	        }
-        	    });
-            	
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        new DificuldadesMaluco();
+                    }
+                });
             }
         });
         add(minadoMalucoButton);
 
-        
-        JButton pontuacaoButton = new JButton("Pontuação");
+        JButton doisJogadoresButton = new JButton("Dois Jogadores -> Maluco");
+        doisJogadoresButton.setFont(buttonFont);
+        doisJogadoresButton.setForeground(textColor);
+        doisJogadoresButton.setBackground(buttonColor);
+        doisJogadoresButton.setBorder(buttonBorder);
+        doisJogadoresButton.setFocusPainted(false);
+        doisJogadoresButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        new DificuldadesMalucoDuo();
+                    }
+                });
+            }
+        });
+        add(doisJogadoresButton);
+
+        JButton doisJogadoresButton2 = new JButton("Dois Jogadores -> Normal");
+        doisJogadoresButton2.setFont(buttonFont);
+        doisJogadoresButton2.setForeground(textColor);
+        doisJogadoresButton2.setBackground(buttonColor);
+        doisJogadoresButton2.setBorder(buttonBorder);
+        doisJogadoresButton2.setFocusPainted(false);
+        doisJogadoresButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        new DificuldadesCampoDuo();
+                    }
+                });
+            }
+        });
+        add(doisJogadoresButton2);
+
+      
+
+        JButton pontuacaoButton = new JButton("Pontua��o");
         pontuacaoButton.setFont(buttonFont);
         pontuacaoButton.setForeground(textColor);
         pontuacaoButton.setBackground(buttonColor);
@@ -148,7 +106,6 @@ public class Menu extends JFrame {
         });
         add(pontuacaoButton);
 
-     
         JButton sairButton = new JButton("Sair");
         sairButton.setFont(buttonFont);
         sairButton.setForeground(textColor);
@@ -162,11 +119,10 @@ public class Menu extends JFrame {
         });
         add(sairButton);
 
-        setSize(800, 620); 
-        setLocationRelativeTo(null); 
+        setSize(800, 620);
+        setLocationRelativeTo(null);
         setVisible(true);
     }
-    
-    
 
+    
 }

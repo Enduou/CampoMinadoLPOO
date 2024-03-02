@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Iterator;
 
-public class CampoMinadoGUI extends JFrame implements ActionListener {
+public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	    return new ImageIcon(imagem);
 	}
 	
-	public CampoMinadoGUI(Campo campo) {
+	public CampoMinadoGUIduo(Campo campo) {
 		
 		this.campo = campo;
 		
