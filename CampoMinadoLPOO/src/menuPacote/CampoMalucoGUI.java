@@ -33,7 +33,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	private int bombas;
 	
 	
-	private ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
+	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
 	    ImageIcon iconeOriginal = new ImageIcon(caminhoImagem);
 	    Image imagem = iconeOriginal.getImage().getScaledInstance(largura, altura, Image.SCALE_SMOOTH);
 	    return new ImageIcon(imagem);
@@ -216,7 +216,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	                }
 	            } else {
 	                if (campo.getMatriz()[i][j].getFlag()) {
-	                    botao[i][j].setText("F"); // Aplica o ícone de flag
+	                    botao[i][j].setIcon(iconeFlag); // Aplica o ícone de flag
 	                } else {
 	                    botao[i][j].setText("");
 	                }

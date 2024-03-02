@@ -27,20 +27,28 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	private int bombasFlag = 0;
 	private int bombas;
 
+	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
+	    ImageIcon iconeOriginal = new ImageIcon(caminhoImagem);
+	    Image imagem = iconeOriginal.getImage().getScaledInstance(largura, altura, Image.SCALE_SMOOTH);
+	    return new ImageIcon(imagem);
+	}
+	
 	public CampoMinadoGUI(Campo campo) {
 		
 		this.campo = campo;
+	    
 		setTitle("Campo Minado");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		this.setSize(800, 800);
 		this.setResizable(true);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 		painelTabuleiro = new JPanel(new GridLayout(campo.getLinha(), campo.getColuna()));
-		botoes = new JButton[campo.getLinha()][campo.getColuna()];
+	    botoes = new JButton[campo.getLinha()][campo.getColuna()];
 
-		inicializarTabuleiro();
-		add(painelTabuleiro, BorderLayout.CENTER);
+	    inicializarTabuleiro();
+	    add(painelTabuleiro, BorderLayout.CENTER);
 		pack();
 		setVisible(true);
 
@@ -226,21 +234,21 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 	}
 	private void jogoVencido() {
-	    JDialog gameWinDialog = new JDialog(this, "Parabéns, Você Venceu!", true);
+	    JDialog gameWinDialog = new JDialog(this, "Parabens, Voce Venceu!", true);
 	    gameWinDialog.setSize(300, 150);
 	    gameWinDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    gameWinDialog.setLayout(new BorderLayout());
 
-	    JLabel parabensLabel = new JLabel("Parabéns! Você venceu o jogo!", SwingConstants.CENTER);
+	    JLabel parabensLabel = new JLabel("Parabens! Voce venceu o jogo!", SwingConstants.CENTER);
 	    gameWinDialog.add(parabensLabel, BorderLayout.CENTER);
 
 	    Timer timer = new Timer(4000, new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // Ação a ser realizada após 4 segundos
+	            // Aï¿½ï¿½o a ser realizada apï¿½s 4 segundos
 	            dispose();
 	          
-	            new Menu(); // Método para retornar ao menu principal
+	            new Menu(); // Mï¿½todo para retornar ao menu principal
 	            
 	        }
 	    });
@@ -260,7 +268,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	    gameLostDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    gameLostDialog.setLayout(new BorderLayout());
 
-	    JLabel gameOverLabel = new JLabel("Game Over! Você perdeu o jogo.", SwingConstants.CENTER);
+	    JLabel gameOverLabel = new JLabel("Game Over! Vocï¿½ perdeu o jogo.", SwingConstants.CENTER);
 	    gameLostDialog.add(gameOverLabel, BorderLayout.CENTER);
 
 	    Timer timer = new Timer(4000, new ActionListener() {
@@ -279,16 +287,6 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	    gameLostDialog.setVisible(true);
 	}
 
-	
-	public static void main(String[] args) {
-	    SwingUtilities.invokeLater(new Runnable() {
-	        public void run() {
-	           
-	        
-	        	new CampoMinadoGUI(new CampoMedio(8,8,1));
-	        }
-	    });
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

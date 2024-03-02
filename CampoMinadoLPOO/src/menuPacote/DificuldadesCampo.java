@@ -30,7 +30,7 @@ public class DificuldadesCampo extends JFrame implements ActionListener {
 		this.setTitle("Campo Minado");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		this.setSize(500, 500);
+		this.setSize(1200, 800);
 		this.setResizable(false);
 		this.getContentPane().setBackground(new Color(0, 0, 0));
 

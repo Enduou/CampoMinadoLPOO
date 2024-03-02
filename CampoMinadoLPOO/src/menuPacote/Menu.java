@@ -21,12 +21,11 @@ public class Menu extends JFrame {
     	setTitle("Campo Minado");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.BLACK); 
-        setLayout(new GridLayout(4, 1, 10, 10)); 
-        this.setSize(500,500);
+        setLayout(new GridLayout(5, 1, 10, 10)); // 
+        this.setSize(500, 500); 
         this.setResizable(false);
 
-        
-       
+      
         Font buttonFont = new Font("Arial", Font.BOLD, 16);
         Color buttonColor = Color.BLACK;
         Color textColor = Color.GREEN;
@@ -163,7 +162,7 @@ public class Menu extends JFrame {
         });
         add(sairButton);
 
-        setSize(300, 200); 
+        setSize(800, 620); 
         setLocationRelativeTo(null); 
         setVisible(true);
     }
