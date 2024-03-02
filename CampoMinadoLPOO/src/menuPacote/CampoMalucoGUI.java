@@ -130,55 +130,78 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 				botao[i][j].addMouseListener((MouseListener) new MouseAdapter() {
 					 @Override
 					 public void mouseClicked(MouseEvent e) {
-					     
-						 ImageIcon iconeFlag = redimensionarIcone("/images/flag.png", 20, 20);
-						 // Assume que iconeFlag é um atributo da classe para evitar recarregamento constante
-					     if (iconeFlag == null) {
-					         iconeFlag = redimensionarIcone("/images/flag.png", 20, 20);
-					     }
+	                        //verificando se � um clique com o bot�o direito
+	                        if (e.getButton() == MouseEvent.BUTTON3) {
+	                            if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
+	                                if (!campo.getMatriz()[linhaGui][colunaGui].getFlag()) {
+	                                	//verificando se a c�lula � maluca para fazer a l�gica
+	                                    if(campo.getMatriz()[linhaGui][colunaGui].getCelulaMaluca()) {
+	                                        campo.getMatriz()[linhaGui][colunaGui].setFlag(true);
+	                                        campo.getMatriz()[linhaGui][colunaGui].revelar();
 
-					     // Verificando se é um clique com o botão direito
-					     if (e.getButton() == MouseEvent.BUTTON3) {
-					         JButton botaoClicado = botao[linhaGui][colunaGui];
-					         // Verifica se a célula ainda não foi revelada e não tem uma flag
-					         if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado() && !campo.getMatriz()[linhaGui][colunaGui].getFlag()) {
-					             // Seta a flag para true e revela a célula se for maluca
-					             campo.getMatriz()[linhaGui][colunaGui].setFlag(true);
-					             campo.getMatriz()[linhaGui][colunaGui].revelar();
-					             botaoClicado.setIcon(iconeFlag);
+	                                        
+	                                        campo.identificadorCelulaMaluca(linhaGui, colunaGui);
+	                                        campo.getMatriz()[linhaGui][colunaGui].revelar();
+	                                        atualizarBotoes();
 
-					             // Se a célula for maluca, executa lógica específica
-					             if (campo.getMatriz()[linhaGui][colunaGui].getCelulaMaluca()) {
-					                 campo.identificadorCelulaMaluca(linhaGui, colunaGui);
-					                 
-					             }
+	                                        if (campo.getMatriz()[linhaGui][colunaGui] instanceof CelulaBomba) {
+	                                            bombasFlag--;
+	                                        }
+	                                        
+	                                        //exibindo a vit�ria em caso de retornar true
+	                                        if (flagsCorretas()) {
+//	                                            gameWin(currentPlayer);
+	                                        }
+	                                    }
+	                                    else {
+	                                        campo.getMatriz()[linhaGui][colunaGui].setFlag(true);
+	                                        campo.getMatriz()[linhaGui][colunaGui].revelar();
 
-					             // Atualiza o contador de bombas se for uma bomba
-					             if (campo.getMatriz()[linhaGui][colunaGui] instanceof CelulaBomba) {
-					                 bombasFlag++;
-					             }
-					         } else if (campo.getMatriz()[linhaGui][colunaGui].getFlag()) {
-					             // Remove a flag se a célula já tinha uma
-					             campo.getMatriz()[linhaGui][colunaGui].setFlag(false);
-					             campo.getMatriz()[linhaGui][colunaGui].setRevelado(false); // Essa linha pode ser desnecessária dependendo da sua lógica de revelação
-					             botaoClicado.setIcon(null);
 
-					             // Atualiza o contador de bombas se for uma bomba
-					             if (campo.getMatriz()[linhaGui][colunaGui] instanceof CelulaBomba) {
-					                 bombasFlag--;
-					             }
-					         }
+	                                        botao[linhaGui][colunaGui].setText("FLAG");
 
-					         // Checa se todas as flags estão corretas após cada ação
-					         if (flagsCorretas()) {
-					             // Implemente sua lógica de vitória aqui
-					         }
+	                                        atualizarBotoes();
 
-					         // Atualiza os botões para refletir as mudanças
-					         atualizarBotoes();
-					     }
-					 }
+	                                        if (campo.getMatriz()[linhaGui][colunaGui] instanceof CelulaBomba) {
+	                                            bombasFlag++;
+	                                        }
 
+	                                        if (flagsCorretas()) {
+//	                                            gameWin(currentPlayer);
+	                                        }
+	                                    }
+	                                } 
+	                                else {
+	                                    campo.getMatriz()[linhaGui][colunaGui].setFlag(false);
+	                                    campo.getMatriz()[linhaGui][colunaGui].setRevelado(false);
+
+	                                    botao[linhaGui][colunaGui].setText("");
+	                                    botao[linhaGui][colunaGui].setIcon(null);
+	                                    botao[linhaGui][colunaGui].setLayout(new BorderLayout());
+
+	                                    if (campo.getMatriz()[linhaGui][colunaGui] instanceof CelulaBomba) {
+	                                        bombasFlag--;
+	                                    }
+	                                }
+	                            } 
+	                            else if (campo.getMatriz()[linhaGui][colunaGui].getRevelado() && campo.getMatriz()[linhaGui][colunaGui].getFlag()) {
+	                                campo.getMatriz()[linhaGui][colunaGui].setFlag(false);
+	                                campo.getMatriz()[linhaGui][colunaGui].setRevelado(false);
+
+	                                botao[linhaGui][colunaGui].setText("");
+	                                botao[linhaGui][colunaGui].setIcon(null);
+	                                botao[linhaGui][colunaGui].setLayout(new BorderLayout());
+
+	                                if (campo.getMatriz()[linhaGui][colunaGui] instanceof CelulaBomba) {
+	                                    bombasFlag--;
+	                                }
+	                                if (flagsCorretas()) {
+//	                                    gameWin(currentPlayer);
+	                                }
+	                            }
+	                        }
+	                        atualizarBotoes();
+	                    }
 
 				
 	                });
@@ -220,7 +243,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	                } else {
 	                    botao[i][j].setText("");
 	                }
-	            }
+	            } 	
 	        }
 	    }
 	}

@@ -36,7 +36,14 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	public CampoMinadoGUI(Campo campo) {
 		
 		this.campo = campo;
-	    
+		
+		String nomeJogador = JOptionPane.showInputDialog(this, "Digite seu nome:", "Registro do Jogador", JOptionPane.PLAIN_MESSAGE);
+        if (nomeJogador != null && !nomeJogador.trim().isEmpty()) {
+            // Processar o nome do jogador
+        } else {
+            // Lidar com a situação onde o jogador não digitou um nome
+        
+        }
 		setTitle("Campo Minado");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
