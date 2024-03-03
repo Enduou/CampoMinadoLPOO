@@ -1,4 +1,4 @@
-package menuPacote;
+package guiPacote;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,11 +12,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
-import celulaPacote.CampoMaluco;
+import celulaPacote.Campo;
+import celulaPacote.CampoMedio;
 
-
-public class DificuldadesMaluco extends JFrame implements ActionListener {
+public class DificuldadesCampoDuo extends JFrame implements ActionListener {
 
 	private JButton hardButton;
 	private JButton mediumButton;
@@ -25,8 +26,8 @@ public class DificuldadesMaluco extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
-	public DificuldadesMaluco() {
-		this.setTitle("Campo Minado Maluco");
+	public DificuldadesCampoDuo() {
+		this.setTitle("Campo Minado");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		this.setSize(1200, 800);
@@ -34,7 +35,7 @@ public class DificuldadesMaluco extends JFrame implements ActionListener {
 		this.getContentPane().setBackground(new Color(0, 0, 0));
 
 		MatteBorder labelBorder = BorderFactory.createMatteBorder(0, 0, 4, 0, new Color(0, 128, 0));
-		JLabel label = new JLabel("Campo Minado Maluco");
+		JLabel label = new JLabel("Campo Minado (DUO)");
 		label.setForeground(new Color(0, 255, 0));
 		label.setFont(new Font("Arialxz", Font.BOLD, 33));
 		label.setHorizontalAlignment(JLabel.CENTER);
@@ -79,16 +80,16 @@ public class DificuldadesMaluco extends JFrame implements ActionListener {
 		return button;
 	}
 
-	private static CampoMaluco escolherDificuldade(int escolha) {
+	private static Campo escolherDificuldade(int escolha) {
 		switch (escolha) {
 		case 0:
-			return new CampoMaluco(5, 5, 5, 3);
+			return new CampoMedio(5, 5, 5);
 
 		case 1:
-			return new CampoMaluco(10, 10, 13,8);
+			return new CampoMedio(10, 10, 13);
 
 		case 2:
-			return new CampoMaluco(17, 17, 17,13);
+			return new CampoMedio(17, 17, 17);
 
 		default:
 			System.exit(0);
@@ -102,17 +103,17 @@ public class DificuldadesMaluco extends JFrame implements ActionListener {
 
 		if (e.getSource() == easyButton) {
 			dispose();
-			new CampoMalucoGUI(escolherDificuldade(0));
+			new CampoMinadoGUIduo(escolherDificuldade(0));
 		}
 
 		if (e.getSource() == mediumButton) {
 			dispose();
-			new CampoMalucoGUI(escolherDificuldade(1));
+			new CampoMinadoGUIduo(escolherDificuldade(1));
 		}
 
 		if (e.getSource() == hardButton) {
 			dispose();
-			new CampoMalucoGUI(escolherDificuldade(2));
+			new CampoMinadoGUIduo(escolherDificuldade(2));
 		}
 		if (e.getSource() == backButton) {
 			dispose();
@@ -121,4 +122,3 @@ public class DificuldadesMaluco extends JFrame implements ActionListener {
 	}
 
 }
-

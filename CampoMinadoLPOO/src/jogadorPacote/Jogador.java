@@ -1,4 +1,6 @@
-package celulaPacote;
+package jogadorPacote;
+
+import celulaPacote.Celula;
 
 public class Jogador extends Celula {
 

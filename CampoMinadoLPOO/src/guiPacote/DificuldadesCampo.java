@@ -1,4 +1,4 @@
-package menuPacote;
+package guiPacote;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

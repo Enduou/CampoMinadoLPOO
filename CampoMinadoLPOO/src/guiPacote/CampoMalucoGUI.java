@@ -1,4 +1,4 @@
-package menuPacote;
+package guiPacote;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,6 +23,7 @@ import javax.swing.Timer;
 
 import celulaPacote.CampoMaluco;
 import celulaPacote.CampoMedio;
+import celulaPacote.Celula;
 import celulaPacote.CelulaBomba;
 import celulaPacote.CelulaVazia;
 import celulaPacote.CelulaVizinha;
@@ -152,9 +153,9 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	                                            bombasFlag--;
 	                                        }
 	                                        
-	                                        //exibindo a vit�ria em caso de retornar true
+	                                        
 	                                        if (flagsCorretas()) {
-//	                                            gameWin(currentPlayer);
+	                                        	jogoVencido();
 	                                        }
 	                                    }
 	                                    else {
@@ -171,7 +172,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	                                        }
 
 	                                        if (flagsCorretas()) {
-//	                                            gameWin(currentPlayer);
+	                                            jogoVencido();
 	                                        }
 	                                    }
 	                                } 
@@ -255,20 +256,23 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 
 	
 	private boolean flagsCorretas() {
-		for (int i = 0; i < campo.getLinha(); i++) {
-			for (int j = 0; j < campo.getColuna(); j++) {
-				if (campo.getMatriz()[i][j] instanceof CelulaBomba) {
-					if (campo.getMatriz()[i][j].getFlag()) {
-						return false;
-					}
-				} else {
-					if (campo.getMatriz()[i][j].getFlag()) {
-						return false;
-					}
-				}
-			}
-		}
-		return true;
+	    int contadorBombasMarcadas = 0;
+	    int contadorFlagsIncorretas = 0;
+	    
+	    for (int i = 0; i < campo.getLinha(); i++) {
+	        for (int j = 0; j < campo.getColuna(); j++) {
+	            Celula celulaAtual = campo.getMatriz()[i][j];
+	            if (celulaAtual instanceof CelulaBomba && celulaAtual.getFlag()) {
+	                contadorBombasMarcadas++;
+	            } else if (!(celulaAtual instanceof CelulaBomba) && celulaAtual.getFlag()) {
+	                
+	                contadorFlagsIncorretas++;
+	            }
+	        }
+	    }
+	    
+	    
+	    return contadorBombasMarcadas == bombas && contadorFlagsIncorretas == 0;
 	}
 	
 	private void jogoVencido() {

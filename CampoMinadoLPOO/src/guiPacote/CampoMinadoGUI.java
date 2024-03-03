@@ -1,4 +1,4 @@
-package menuPacote;
+package guiPacote;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Iterator;
 
-public class CampoMinadoGUIduo extends JFrame implements ActionListener {
+public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,6 +26,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	private Campo campo;
 	private int bombasFlag = 0;
 	private int bombas;
+	private int pontuacaoAtual = 0;
 
 	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
 	    ImageIcon iconeOriginal = new ImageIcon(caminhoImagem);
@@ -33,7 +34,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	    return new ImageIcon(imagem);
 	}
 	
-	public CampoMinadoGUIduo(Campo campo) {
+	public CampoMinadoGUI(Campo campo) {
 		
 		this.campo = campo;
 		
@@ -64,6 +65,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	
 	
 	private void inicializarTabuleiro() {
+		ImageIcon iconeFlag = redimensionarIcone("images/flag.png", 20, 20);
 		campo.iniciarJogo();
 		for (int i = 0; i < campo.getLinha(); i++) {
 			for (int j = 0; j < campo.getColuna(); j++) {
@@ -123,9 +125,10 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 							int bombasAoRedor = campo.calcularBombas(linhaGuiClicada, colunaGuiClicada);
 							botaoClicado.setText(Integer.toString(bombasAoRedor));
 							campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].revelar();
+							pontuacaoAtual++;
 							atualizarBotoes();
 						}
-						// fazer logica do score e troca de jogadores
+						
 					}
 				});
 
@@ -142,9 +145,11 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 											&& (campo.getMatriz()[linhaGui][colunaGui].getFlag())) {
 										bombasFlag++;
 									}
-									// colocar imagem da flag
-									// setar configuracoes da imagem
-									botoes[linhaGui][colunaGui].setText("=");
+									
+									botoes[linhaGui][colunaGui].setIcon(iconeFlag);
+									if (flagsCorretas()) {
+                                    	jogoVencido();
+                                    }
 									if ((bombasFlag == bombas) && flagsCorretas()) {
 										jogoVencido();
 									}
@@ -221,11 +226,15 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	}
 
 	public void atualizarBotoes() {
+		
+		ImageIcon iconeBomba = redimensionarIcone("images/bomba.png", 20, 20);
+	    
+		
 		for (int i = 0; i < botoes.length; i++) {
 			for (int j = 0; j < botoes[i].length; j++) {
 				if (campo.getMatriz()[i][j].getRevelado()) {
 					if (campo.getMatriz()[i][j] instanceof CelulaBomba && !campo.getMatriz()[i][j].getFlag()) {
-						botoes[i][j].setText("X");
+						botoes[i][j].setIcon(iconeBomba);
 					} else if (campo.getMatriz()[i][j] instanceof CelulaVazia && !campo.getMatriz()[i][j].getFlag()) {
 						botoes[i][j].setText("");
 					} else if (campo.getMatriz()[i][j] instanceof CelulaVizinha && !campo.getMatriz()[i][j].getFlag()) {
@@ -275,7 +284,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	    gameLostDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    gameLostDialog.setLayout(new BorderLayout());
 
-	    JLabel gameOverLabel = new JLabel("Game Over! Voc� perdeu o jogo.", SwingConstants.CENTER);
+	    JLabel gameOverLabel = new JLabel("Game Over! Voce perdeu o jogo.", SwingConstants.CENTER);
 	    gameLostDialog.add(gameOverLabel, BorderLayout.CENTER);
 
 	    Timer timer = new Timer(4000, new ActionListener() {
@@ -293,6 +302,27 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	    gameLostDialog.setLocationRelativeTo(this);
 	    gameLostDialog.setVisible(true);
 	}
+	
+	/*public void printcampoState() {
+        System.out.println("Current campo:");
+        for (int i = 0; i < campo.getLinha(); i++) {
+            for (int j = 0; j < campo.getColuna(); j++) {
+                if (campo.getSquare()[i][j] instanceof Bomba) {
+                    if (campo.getSquare()[i][j].checkCrazyCell()) {
+                        System.out.print("f ");
+                    }else {
+                        System.out.print("X ");
+                    }
+                } else if (campo.getSquare()[i][j] instanceof CelulaVazia) {
+                    System.out.print("- ");
+                } else if (campo.getSquare()[i][j] instanceof CelulaVizinha) {
+                    System.out.print("- ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println(numBombsFlagged);
+    }*/
 
 
 	@Override

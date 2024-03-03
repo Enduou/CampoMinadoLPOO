@@ -1,7 +1,8 @@
 package mainPacote;
 
-import menuPacote.Menu;
 import javax.swing.SwingUtilities;
+
+import guiPacote.Menu;
 
 public class Main {
 
