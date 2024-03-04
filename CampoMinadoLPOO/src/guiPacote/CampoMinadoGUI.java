@@ -27,6 +27,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	private int bombasFlag = 0;
 	private int bombas;
 	private int pontuacaoAtual = 0;
+	private JLabel pontuacaoLabel;
 
 	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
 	    ImageIcon iconeOriginal = new ImageIcon(caminhoImagem);
@@ -51,6 +52,10 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		this.setSize(800, 800);
 		this.setResizable(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		pontuacaoLabel = new JLabel(nomeJogador + " - Pontuação: 0");
+	    pontuacaoLabel.setHorizontalAlignment(JLabel.CENTER);
+	    pontuacaoLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+	    add(pontuacaoLabel, BorderLayout.NORTH);
 
 		painelTabuleiro = new JPanel(new GridLayout(campo.getLinha(), campo.getColuna()));
 	    botoes = new JButton[campo.getLinha()][campo.getColuna()];
@@ -104,13 +109,12 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 						if (campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getRevelado()) {
 							return;
-
 						}
 						if ((campo.getMatriz()[linhaGuiClicada][colunaGuiClicada] instanceof CelulaBomba)
 								&& (!campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getFlag())) {
 							campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].revelar();
 							botaoClicado.setLayout(new BorderLayout());
-							// colocar imagem
+							
 
 							atualizarBotoes();
 
@@ -119,6 +123,8 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 						} else if ((campo.getMatriz()[linhaGuiClicada][colunaGuiClicada] instanceof CelulaVazia)
 								&& (!campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getFlag())) {
 							campo.explodir(linhaGuiClicada, colunaGuiClicada);
+							pontuacaoAtual++;
+							pontuacaoLabel.setText("Pontuação: " + pontuacaoAtual);
 							atualizarBotoes();
 						} else if ((campo.getMatriz()[linhaGuiClicada][colunaGuiClicada] instanceof CelulaVizinha)
 								&& (!campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getFlag())) {
@@ -126,6 +132,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 							botaoClicado.setText(Integer.toString(bombasAoRedor));
 							campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].revelar();
 							pontuacaoAtual++;
+							pontuacaoLabel.setText("Pontuação: " + pontuacaoAtual);
 							atualizarBotoes();
 						}
 						
