@@ -4,57 +4,59 @@ import java.util.Random;
 
 import javax.management.InvalidAttributeValueException;
 
-public class Campo  implements iCampo, InterfaceCampo {
+public class Campo implements iCampo, InterfaceCampo {
 
-	protected Celula [][] matriz;
+	protected Celula[][] matriz;
 	protected int bombasFlag;
 	protected boolean jogoAtivo;
 	protected int linha;
 	protected int coluna;
 	protected int bombas;
-	
+
 	public Campo(int linha, int coluna, int bombas) {
 		this.linha = linha;
 		this.coluna = coluna;
 		this.bombas = bombas;
 	}
-	
+
 	public int getBombas() {
 		return bombas;
 	}
+
 	public int getLinha() {
 		return linha;
 	}
-	
+
 	public int getColuna() {
 		return coluna;
 	}
-	public Celula[][]getMatriz() {
+
+	public Celula[][] getMatriz() {
 		return this.matriz;
 	}
-	public void adicionarBomba() throws InvalidAttributeValueException  {
-		
+
+	public void adicionarBomba() throws InvalidAttributeValueException {
+
 		if (bombas > (linha * coluna)) {
-	        throw new InvalidAttributeValueException("Número de bombas maior do que o número total de células no tabuleiro.");
-	    }
+			throw new InvalidAttributeValueException(
+					"Número de bombas maior do que o número total de células no tabuleiro.");
+		}
 		bombasFlag = 0;
-		
 
 		Random rand = new Random();
 		int n = bombas;
 		while (n > 0) {
-		    int l = rand.nextInt(linha);
-		    int c = rand.nextInt(coluna);
+			int l = rand.nextInt(linha);
+			int c = rand.nextInt(coluna);
 
-		    if (!(matriz[l][c] instanceof CelulaBomba)) {
-		        matriz[l][c] = new CelulaBomba();
-		        n--;
-		    }
+			if (!(matriz[l][c] instanceof CelulaBomba)) {
+				matriz[l][c] = new CelulaBomba();
+				n--;
+			}
 		}
-		}
-	
+	}
 
-	public void iniciarJogo()  {
+	public void iniciarJogo() {
 		jogoAtivo = true;
 		matriz = new Celula[linha][coluna];
 
@@ -80,32 +82,32 @@ public class Campo  implements iCampo, InterfaceCampo {
 		}
 	}
 
-	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int escolha)  {
-	    linhaSelecionada--;
-	    colunaSelecionada--;
+	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int escolha) {
+		linhaSelecionada--;
+		colunaSelecionada--;
 
-	    if (linhaSelecionada >= linha || linhaSelecionada < 0 || colunaSelecionada >= coluna || colunaSelecionada < 0) {
-	        
-	    } else if (escolha == 0) {
-	        explodir(linhaSelecionada, colunaSelecionada);
+		if (linhaSelecionada >= linha || linhaSelecionada < 0 || colunaSelecionada >= coluna || colunaSelecionada < 0) {
 
-	        if ((matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba)
-	                && (matriz[linhaSelecionada][colunaSelecionada].getRevelado())
-	                && (!matriz[linhaSelecionada][colunaSelecionada].getFlag())) {
-	            System.out.println("VocÃª perdeu");
-	            jogoAtivo = false;
-	        }
-	    } else if (escolha == 1) {
-	        if (!matriz[linhaSelecionada][colunaSelecionada].getFlag()) {
-	            matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
-	            matriz[linhaSelecionada][colunaSelecionada].revelar();
-	            System.out.println(matriz[linhaSelecionada][colunaSelecionada].getFlag());
-	            
-	            if(matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba) {
-	            	bombasFlag ++;
-	            }
-	        }
-	    }
+		} else if (escolha == 0) {
+			explodir(linhaSelecionada, colunaSelecionada);
+
+			if ((matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba)
+					&& (matriz[linhaSelecionada][colunaSelecionada].getRevelado())
+					&& (!matriz[linhaSelecionada][colunaSelecionada].getFlag())) {
+				System.out.println("VocÃª perdeu");
+				jogoAtivo = false;
+			}
+		} else if (escolha == 1) {
+			if (!matriz[linhaSelecionada][colunaSelecionada].getFlag()) {
+				matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
+				matriz[linhaSelecionada][colunaSelecionada].revelar();
+				System.out.println(matriz[linhaSelecionada][colunaSelecionada].getFlag());
+
+				if (matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba) {
+					bombasFlag++;
+				}
+			}
+		}
 	}
 
 	public int calcularBombas(int linhaB, int colunaB) {
@@ -125,10 +127,8 @@ public class Campo  implements iCampo, InterfaceCampo {
 
 	public void explodir(int linha, int coluna) {
 		if (linha >= 0 && linha < matriz.length && coluna >= 0 && coluna < matriz[linha].length) {
-			Celula celula = matriz[linha][coluna];
-			if (!(matriz[linha][coluna] instanceof CelulaBomba) && celula instanceof CelulaVazia
-					&& !celula.getRevelado()) {
-				celula.revelar();
+			if (!(matriz[linha][coluna] instanceof CelulaBomba) && (matriz[linha][coluna] instanceof CelulaVazia)  && (!matriz[linha][coluna].getRevelado())) {
+				matriz[linha][coluna].revelar();
 				for (int l = linha - 1; l <= linha + 1; l++) {
 					for (int c = coluna - 1; c <= coluna + 1; c++) {
 						if (l != linha || c != coluna) {
@@ -142,7 +142,6 @@ public class Campo  implements iCampo, InterfaceCampo {
 		}
 	}
 
-	
 //Polimorfismo para incrementar os caracteres de espaÃ§o na formataÃ§Ã£o do tabuleiro 
 	@Override
 	public String toString() {
@@ -160,6 +159,5 @@ public class Campo  implements iCampo, InterfaceCampo {
 		}
 		return str;
 	}
-
 
 }

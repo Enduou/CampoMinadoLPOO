@@ -85,10 +85,10 @@ public class DificuldadesMaluco extends JFrame implements ActionListener {
 			return new CampoMaluco(5, 5, 5, 3);
 
 		case 1:
-			return new CampoMaluco(10, 10, 13,8);
+			return new CampoMaluco(12, 12, 5,60);
 
 		case 2:
-			return new CampoMaluco(17, 17, 17,13);
+			return new CampoMaluco(17, 17, 17,17);
 
 		default:
 			System.exit(0);

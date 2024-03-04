@@ -61,6 +61,8 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 		
 		bombas = campo.getBombas();
 		
+	
+		
 		for (int i = 0; i < campo.getLinha(); i++) {
 			for (int j = 0; j < campo.getColuna(); j++) {
 				botao[i][j] = new JButton();
@@ -143,14 +145,14 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	                                    if(campo.getMatriz()[linhaGui][colunaGui].getCelulaMaluca()) {
 	                                        campo.getMatriz()[linhaGui][colunaGui].setFlag(true);
 	                                        campo.getMatriz()[linhaGui][colunaGui].revelar();
-
+	                                        botao[linhaGui][colunaGui].setText("FLAG");
 	                                        
 	                                        campo.identificadorCelulaMaluca(linhaGui, colunaGui);
 	                                        campo.getMatriz()[linhaGui][colunaGui].revelar();
 	                                        atualizarBotoes();
 
 	                                        if (campo.getMatriz()[linhaGui][colunaGui] instanceof CelulaBomba) {
-	                                            bombasFlag--;
+	                                            bombasFlag++;
 	                                        }
 	                                        
 	                                        
@@ -217,8 +219,8 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 		
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
-		
-		
+		printcampoState();
+		contadorBombas();
 		
 	}
 	
@@ -240,7 +242,12 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	                    botao[i][j].setText("_"); // Celulas vazias não mostram texto ou ícone
 	                } else if (campo.getMatriz()[i][j] instanceof CelulaVizinha && !campo.getMatriz()[i][j].getFlag()) {
 	                    int bombasAoRedor = campo.calcularBombas(i, j);
-	                    botao[i][j].setText(Integer.toString(bombasAoRedor)); // Mostra o número de bombas ao redor
+	                    if(bombasAoRedor == 0) {
+	                    	botao[i][j].setText("_");
+	                    }else {
+	                    	botao[i][j].setText(Integer.toString(bombasAoRedor)); // Mostra o número de bombas ao redor	
+	                    }
+	                 
 	                }
 	            } else {
 	                if (campo.getMatriz()[i][j].getFlag()) {
@@ -330,11 +337,48 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	}
 
 	
+		public void printcampoState() {
+		    System.out.println("Current campo:");
+		    for (int i = 0; i < campo.getLinha(); i++) {
+		        for (int j = 0; j < campo.getColuna(); j++) {
+		            if (campo.getMatriz()[i][j] instanceof CelulaBomba) {
+		                if (campo.getMatriz()[i][j].getCelulaMaluca()) {
+		                    System.out.print("f ");
+		                } else {
+		                    System.out.print("X ");
+		                }
+		            } else if (campo.getMatriz()[i][j] instanceof CelulaVazia) {
+		                System.out.print("- ");
+		            } else if (campo.getMatriz()[i][j] instanceof CelulaVizinha) {
+		                System.out.print("- ");
+		            }
+		        }
+		        System.out.println();
+		    }
+		    System.out.println(bombasFlag);
+		}
+	
+		public int contadorBombas() {
+		    int n = 0;
+		    System.out.println("Eu sou lindo");
+		    for (int i = 0; i < campo.getLinha(); i++) {
+		        for (int j = 0; j < campo.getColuna(); j++) {
+		            if (campo.getMatriz()[i][j].getCelulaMaluca()) {
+		                n++  ; // Incrementa o contador para c�lulas malucas
+		               
+		            }
+		        }
+		    }
+		    return n;
+		}
+		
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	 
 
 }

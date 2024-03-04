@@ -7,13 +7,7 @@ import javax.management.InvalidAttributeValueException;
 public class CampoMaluco extends Campo implements InterfaceCampo {
 
 	private int numCelulasMalucas;
-
-	public CampoMaluco(int linha, int coluna, int bombas, int numCelulasMalucas) {
-		super(linha, coluna, bombas);
-		this.setNumCelulasMalucas(numCelulasMalucas);
-
-	}
-
+	
 	public int getNumCelulasMalucas() {
 		return numCelulasMalucas;
 	}
@@ -22,6 +16,16 @@ public class CampoMaluco extends Campo implements InterfaceCampo {
 		this.numCelulasMalucas = numCelulasMalucas;
 	}
 
+
+	public CampoMaluco(int linha, int coluna, int bombas, int numCelulasMalucas) {
+		super(linha, coluna, bombas);
+		this.numCelulasMalucas = numCelulasMalucas;
+
+	}
+	
+	
+	
+	
 	public void iniciarJogo() {
 		matriz = new Celula[linha][coluna];
 
@@ -52,17 +56,20 @@ public class CampoMaluco extends Campo implements InterfaceCampo {
 	public void inserirCelulaMaluca() {
 
 		Random rand = new Random();
-		int n = numCelulasMalucas;
-		while (n > 0) {
-			int l = rand.nextInt(linha);
-			int c = rand.nextInt(coluna);
-
-			if (!(matriz[l][c].getCelulaMaluca())) {
-				matriz[l][c].setCelulaMaluca(true);
-				n--;
+		
+		int cont = 0;
+		
+		System.out.println("...");
+		
+		while(cont < numCelulasMalucas) {
+			int linhaAleatoria = rand.nextInt(getLinha());
+			int colunaAleatoria = rand.nextInt(getColuna());
+			
+			if(!(getMatriz()[linhaAleatoria][colunaAleatoria].getCelulaMaluca())) {
+				getMatriz()[linhaAleatoria][colunaAleatoria].setCelulaMaluca(true);
+				cont++;
 			}
 		}
-
 	}
 
 	public void selecaoUsuario(int linhaSelecionada, int colunaSelecionada, int intention) {
@@ -137,26 +144,26 @@ public class CampoMaluco extends Campo implements InterfaceCampo {
 	}
 
 	public void identificadorCelulaMaluca(int linhaSelecionada, int colunaSelecionada) {
-		Random rand = new Random();
-		double probabilidadeMaluca = 0.5;
-		matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
-		matriz[linhaSelecionada][colunaSelecionada].revelar();
+	    Random rand = new Random();
+	    double probabilidadeMaluca = 0.5;
+	    System.out.println("Handling Crazy Cell...");
+	    matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
+	    matriz[linhaSelecionada][colunaSelecionada].revelar();
 
-		if (rand.nextDouble() <= probabilidadeMaluca) {
-			if (matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba) {
-				bombasFlag++;
-			}
+	    if (rand.nextDouble() <= probabilidadeMaluca) {
+	        System.out.println("Crazy Cell switched status!");
+	        if (matriz[linhaSelecionada][colunaSelecionada] instanceof CelulaBomba) {
+	            bombasFlag++;
+	        }
 
-			if (calcularBombas(linhaSelecionada, colunaSelecionada) == 0) {
-				matriz[linhaSelecionada][colunaSelecionada] = new CelulaVazia();
-			} else {
-
-				matriz[linhaSelecionada][colunaSelecionada] = new CelulaVizinha();
-			}
-			matriz[linhaSelecionada][colunaSelecionada].setRevelado(true);
-			;
-			matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
-		}
+	        if (calcularBombas(linhaSelecionada, colunaSelecionada) == 0) {
+	            matriz[linhaSelecionada][colunaSelecionada] = new CelulaVazia();
+	        } else {
+	            matriz[linhaSelecionada][colunaSelecionada] = new CelulaVizinha();
+	        }
+	        matriz[linhaSelecionada][colunaSelecionada].setRevelado(false);
+	        matriz[linhaSelecionada][colunaSelecionada].setFlag(true);
+	    }
 	}
-
+	
 }

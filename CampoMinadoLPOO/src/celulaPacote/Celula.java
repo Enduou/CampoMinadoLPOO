@@ -7,7 +7,7 @@ public class Celula {
     //Atributos gerais de uma célula [Verificar a possibilidade de mandar para classes filhas]
     private boolean revelado;
     private boolean flag;
-   
+    private boolean celulaMaluca;
     
 
 
@@ -34,13 +34,13 @@ public class Celula {
 	public void adicionarflag() {
 		this.setFlag(true);
 	}
-	public void setCelulaMaluca(boolean b) {
-		
+	public void setCelulaMaluca(boolean celulaMaluca) {
+		this.celulaMaluca = celulaMaluca;
 		
 	}
 	public boolean getCelulaMaluca() {
 		
-		return false;
+		return celulaMaluca;
 	}
 
 	
