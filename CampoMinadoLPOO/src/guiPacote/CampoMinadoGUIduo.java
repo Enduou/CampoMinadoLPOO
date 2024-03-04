@@ -8,7 +8,7 @@ import celulaPacote.CampoMedio;
 import celulaPacote.CelulaBomba;
 import celulaPacote.CelulaVazia;
 import celulaPacote.CelulaVizinha;
-import jogadorPacote.Jogador;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -241,13 +241,13 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	
 	private void alternarJogador() {
 	    jogadorAtual = (jogadorAtual == jogador1) ? jogador2 : jogador1;
-	    JOptionPane.showMessageDialog(this, "Agora é a vez do jogador: " + jogadorAtual.getNome(), "Vez do Jogador", JOptionPane.INFORMATION_MESSAGE);
+	    JOptionPane.showMessageDialog(this, "Agora é a vez do jogador: " + jogadorAtual.getNomeJogador(), "Vez do Jogador", JOptionPane.INFORMATION_MESSAGE);
 	    atualizarLabelJogador();
 	}
 
 	
 	private void atualizarLabelJogador() {
-	    jogadorAtualLabel.setText("Vez do jogador: " + jogadorAtual.getNome());
+	    jogadorAtualLabel.setText("Vez do jogador: " + jogadorAtual.getNomeJogador());
 	    
 	}
 

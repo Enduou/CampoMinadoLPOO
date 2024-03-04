@@ -1,77 +1,48 @@
 package pontuacaoPacote;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import jogadorPacote.Jogador;
+import java.util.*;
 
-public class GerenciadorDePontuacoes implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    
-    
-    private static GerenciadorDePontuacoes instance;
-    private List<Jogador> jogadores;
+public class GerenciadorDePontuacoes {
+    private List<String> pontuacoes;
+    private static final String ARQUIVO_DE_PONTUACOES = "pontuacoes.txt";
 
-    private GerenciadorDePontuacoes() {
-        jogadores = new ArrayList<>();
-    }
-    
-   
-    public static GerenciadorDePontuacoes getInstance() {
-        if (instance == null) {
-            instance = new GerenciadorDePontuacoes();
-        }
-        return instance;
-    }
-    
-    
-    public void addJogador(Jogador jogador) {
-        jogadores.add(jogador);
+    public GerenciadorDePontuacoes() {
+        this.pontuacoes = new ArrayList<>();
+        carregarPontuacoes();
     }
 
-    public List<Jogador> getJogadores() {
-        return jogadores;
-    }
-    
-    
-    public void savePoints(String filename) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
-            for (Jogador jogador : jogadores) {
-                writer.println(jogador.getNome() + "," + jogador.getPontos());
+    private void carregarPontuacoes() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(ARQUIVO_DE_PONTUACOES))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                pontuacoes.add(linha);
             }
-            
         } catch (IOException e) {
+            System.out.println("Não foi possível carregar as pontuações.");
             e.printStackTrace();
         }
     }
 
-    
-    public void carregaRecorde(String filename) {
-        
-        jogadores.clear();
+    public void adicionarPontuacao(String nomeJogador, int pontuacaoAtual) {
+        String entradaPontuacao = nomeJogador + " - " + pontuacaoAtual;
+        pontuacoes.add(entradaPontuacao);
+        salvarPontuacoes(); 
+    }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    String jogadorNome = parts[0];
-                    int pontos = Integer.parseInt(parts[1]);
-                    jogadores.add(new Jogador(jogadorNome, pontos));
-                }
+    private void salvarPontuacoes() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(ARQUIVO_DE_PONTUACOES))) {
+            for (String pontuacao : pontuacoes) {
+                writer.println(pontuacao); // Aqui, pontuação já inclui o nome do jogador e sua pontuação
             }
         } catch (IOException e) {
+            System.out.println("Não foi possível salvar as pontuações.");
             e.printStackTrace();
         }
     }
     
-    
-    public List<Jogador> getJogadoresLista() {
-        List<Jogador> jogadoresLista = new ArrayList<>(jogadores);
-        Collections.sort(jogadoresLista, Comparator.comparingInt(Jogador::getPontos).reversed());
-        return jogadoresLista;
+
+    public List<String> getPontuacoes() {
+        return new ArrayList<>(pontuacoes);
     }
 }

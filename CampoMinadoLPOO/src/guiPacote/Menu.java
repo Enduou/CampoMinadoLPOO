@@ -3,35 +3,21 @@ package guiPacote;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import jogadorPacote.Jogador;
 import pontuacaoPacote.GerenciadorDePontuacoes;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Menu extends JFrame {
  static final long serialVersionUID = 1L;
- private GerenciadorDePontuacoes gerenciador;
-
- private void mostrarPontuacoes() {
-	    StringBuilder sb = new StringBuilder();
-	    List<Jogador> jogadores = gerenciador.getJogadoresLista();
-	    for (Jogador jogador : jogadores) {
-	        sb.append(jogador.getNome()).append(": ").append(jogador.getPontos()).append("\n");
-	    }
-	    
-	    JOptionPane.showMessageDialog(this, sb.toString().isEmpty() ? "Nenhuma pontuação registrada." : sb.toString(), "Pontuações", JOptionPane.INFORMATION_MESSAGE);
-	}
 
  
  public Menu() {
 
-		gerenciador = GerenciadorDePontuacoes.getInstance();
-	    gerenciador.carregaRecorde("/CampoMinadoLPOO/src/pontos");
 		
 		setTitle("Campo Minado");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,15 +114,11 @@ public class Menu extends JFrame {
         pontuacaoButton.setBorder(buttonBorder);
         pontuacaoButton.setFocusPainted(false);
         pontuacaoButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	JButton pontuacaoButton = new JButton("Pontuação");
-            	pontuacaoButton.addActionListener(new ActionListener() {
             		public void actionPerformed(ActionEvent e) {
-            			mostrarPontuacoes();
+            			    
+            				exibirPontuacoes();
             	    }
             	});
-            }
-        });
         add(pontuacaoButton);
 
         JButton sairButton = new JButton("Sair");
@@ -157,5 +139,38 @@ public class Menu extends JFrame {
         setVisible(true);
     }
 
-    
+ public void exibirPontuacoes() {
+	    GerenciadorDePontuacoes gerenciador = new GerenciadorDePontuacoes();
+	    List<String> pontuacoes = gerenciador.getPontuacoes();
+	    
+	    
+	    List<Jogador> pontuacoesSeparadas = new ArrayList<>();
+	    
+	    
+	    for (String pontuacao : pontuacoes) {
+	        String[] partes = pontuacao.split(" - ");
+	        if (partes.length == 2) {
+	            String nomeJogador = partes[0];
+	            int pontos;
+	            try {
+	                pontos = Integer.parseInt(partes[1]);
+	                pontuacoesSeparadas.add(new Jogador(nomeJogador, pontos));
+	            } catch (NumberFormatException e) {
+	                System.err.println("Erro ao converter a pontuação para inteiro: " + partes[1]);
+	            }
+	        }
+	    }
+	    
+	    
+	    pontuacoesSeparadas.sort((p1, p2) -> Integer.compare(p2.getPontos(), p1.getPontos()));
+	    
+	    
+	    StringBuilder pontuacoesStr = new StringBuilder();
+	    for (Jogador pontuacaoJogador : pontuacoesSeparadas) {
+	        pontuacoesStr.append(pontuacaoJogador.getNomeJogador()).append(" - ").append(pontuacaoJogador.getPontos()).append("\n");
+	    }
+	    
+	    JOptionPane.showMessageDialog(null, pontuacoesStr.toString(), "Pontuações", JOptionPane.INFORMATION_MESSAGE);
+	}
+ 
 }

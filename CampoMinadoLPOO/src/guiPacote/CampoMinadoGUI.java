@@ -8,6 +8,7 @@ import celulaPacote.CampoMedio;
 import celulaPacote.CelulaBomba;
 import celulaPacote.CelulaVazia;
 import celulaPacote.CelulaVizinha;
+import pontuacaoPacote.GerenciadorDePontuacoes;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +29,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	private int bombas;
 	private int pontuacaoAtual = 0;
 	private JLabel pontuacaoLabel;
+	private String nomeJogador;
 
 	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
 	    ImageIcon iconeOriginal = new ImageIcon(caminhoImagem);
@@ -117,7 +119,8 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 							
 
 							atualizarBotoes();
-
+							GerenciadorDePontuacoes gerenciador = new GerenciadorDePontuacoes();
+							gerenciador.adicionarPontuacao(nomeJogador, pontuacaoAtual);
 							jogoPerdido();
 
 						} else if ((campo.getMatriz()[linhaGuiClicada][colunaGuiClicada] instanceof CelulaVazia)
@@ -257,7 +260,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 	}
 	private void jogoVencido() {
-	    JDialog gameWinDialog = new JDialog(this, "Parabens, Voce Venceu!", true);
+		GerenciadorDePontuacoes gerenciador = new GerenciadorDePontuacoes();
+		gerenciador.adicionarPontuacao(nomeJogador, pontuacaoAtual);
+		JDialog gameWinDialog = new JDialog(this, "Parabens, Voce Venceu!", true);
 	    gameWinDialog.setSize(300, 150);
 	    gameWinDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    gameWinDialog.setLayout(new BorderLayout());
@@ -309,27 +314,6 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	    gameLostDialog.setLocationRelativeTo(this);
 	    gameLostDialog.setVisible(true);
 	}
-	
-	/*public void printcampoState() {
-        System.out.println("Current campo:");
-        for (int i = 0; i < campo.getLinha(); i++) {
-            for (int j = 0; j < campo.getColuna(); j++) {
-                if (campo.getSquare()[i][j] instanceof Bomba) {
-                    if (campo.getSquare()[i][j].checkCrazyCell()) {
-                        System.out.print("f ");
-                    }else {
-                        System.out.print("X ");
-                    }
-                } else if (campo.getSquare()[i][j] instanceof CelulaVazia) {
-                    System.out.print("- ");
-                } else if (campo.getSquare()[i][j] instanceof CelulaVizinha) {
-                    System.out.print("- ");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println(numBombsFlagged);
-    }*/
 
 
 	@Override
