@@ -1,6 +1,6 @@
-null - 3
-null - 2
-null - 6
-null - 2
-null - 2
-null - 0
+Paulo - 15
+Eduardo - 12
+Daniel - 11
+Believe - 8
+Igor - 17
+

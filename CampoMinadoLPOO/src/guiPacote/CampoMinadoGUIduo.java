@@ -9,7 +9,6 @@ import celulaPacote.CelulaBomba;
 import celulaPacote.CelulaVazia;
 import celulaPacote.CelulaVizinha;
 
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +30,9 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	private Jogador jogador2;
 	private Jogador jogadorAtual;
 	private JLabel jogadorAtualLabel;
-
+	private int pontuacaoAtual1 = 0;
+	private int pontuacaoAtual2 = 0;
+	private JLabel pontuacaoLabel1;
 
 
 	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
@@ -55,7 +56,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	    jogadorAtualLabel.setHorizontalAlignment(JLabel.CENTER);
 	    jogadorAtualLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
 	    atualizarLabelJogador(); 
-
+	    
 	    
 	    add(jogadorAtualLabel, BorderLayout.NORTH);
 	    
@@ -65,6 +66,13 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 		this.setSize(800, 800);
 		this.setResizable(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		pontuacaoLabel1 = new JLabel(nomeJogador1 + " - Pontuação: 0  " + nomeJogador2 + " - Pontuação: 0");
+	    pontuacaoLabel1.setHorizontalAlignment(JLabel.CENTER);
+	    pontuacaoLabel1.setFont(new Font("SansSerif", Font.BOLD, 18));
+	    add(pontuacaoLabel1, BorderLayout.NORTH);
+	    
+	    
 
 		painelTabuleiro = new JPanel(new GridLayout(campo.getLinha(), campo.getColuna()));
 	    botoes = new JButton[campo.getLinha()][campo.getColuna()];
@@ -121,6 +129,12 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 							return;
 
 						}
+						 if (!campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getRevelado()) {
+						        if (jogadorAtual == jogador1) pontuacaoAtual1++;
+						        else pontuacaoAtual2++;
+						        atualizarPontuacoes();
+						    }
+						
 						if ((campo.getMatriz()[linhaGuiClicada][colunaGuiClicada] instanceof CelulaBomba)
 								&& (!campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getFlag())) {
 							campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].revelar();
@@ -250,6 +264,10 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	    jogadorAtualLabel.setText("Vez do jogador: " + jogadorAtual.getNomeJogador());
 	    
 	}
+	
+	private void atualizarPontuacoes() {
+	    pontuacaoLabel1.setText(jogador1.getNomeJogador() + " - Pontuação: " + pontuacaoAtual1 + " | " + jogador2.getNomeJogador() + " - Pontuação: " + pontuacaoAtual2);
+	}
 
 
 	private void jogoVencido() {
@@ -264,10 +282,10 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	    Timer timer = new Timer(4000, new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // A��o a ser realizada ap�s 4 segundos
+	            
 	            dispose();
 	          
-	            new Menu(); // M�todo para retornar ao menu principal
+	            new Menu(); 
 	            
 	        }
 	    });
@@ -309,7 +327,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 
 	}
 }

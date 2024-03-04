@@ -2,7 +2,6 @@ package guiPacote;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-
 import pontuacaoPacote.GerenciadorDePontuacoes;
 
 import java.awt.*;
@@ -167,10 +166,12 @@ public class Menu extends JFrame {
 	    
 	    StringBuilder pontuacoesStr = new StringBuilder();
 	    for (Jogador pontuacaoJogador : pontuacoesSeparadas) {
-	        pontuacoesStr.append(pontuacaoJogador.getNomeJogador()).append(" - ").append(pontuacaoJogador.getPontos()).append("\n");
+	        System.out.println(pontuacaoJogador.getNomeJogador());
+	        System.out.println(pontuacaoJogador.getPontos());
+	    	pontuacoesStr.append(pontuacaoJogador.getNomeJogador()).append(" - ").append(pontuacaoJogador.getPontos()).append("\n");
 	    }
 	    
-	    JOptionPane.showMessageDialog(null, pontuacoesStr.toString(), "Pontuações", JOptionPane.INFORMATION_MESSAGE);
+	    JOptionPane.showMessageDialog(null, pontuacoesStr.toString(), "Pontuações - 10 Melhores", JOptionPane.INFORMATION_MESSAGE);
 	}
  
 }

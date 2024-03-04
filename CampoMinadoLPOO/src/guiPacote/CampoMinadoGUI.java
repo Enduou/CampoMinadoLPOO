@@ -29,7 +29,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	private int bombas;
 	private int pontuacaoAtual = 0;
 	private JLabel pontuacaoLabel;
-	private String nomeJogador;
+	private String nomesJogador;
 
 	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
 	    ImageIcon iconeOriginal = new ImageIcon(caminhoImagem);
@@ -40,12 +40,12 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	public CampoMinadoGUI(Campo campo) {
 		
 		this.campo = campo;
-		
+	
 		String nomeJogador = JOptionPane.showInputDialog(this, "Digite seu nome:", "Registro do Jogador", JOptionPane.PLAIN_MESSAGE);
         if (nomeJogador != null && !nomeJogador.trim().isEmpty()) {
-            // Processar o nome do jogador
+        	this.nomesJogador = nomeJogador;
         } else {
-            // Lidar com a situação onde o jogador não digitou um nome
+            
         
         }
 		setTitle("Campo Minado");
@@ -108,7 +108,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 								break;
 							}
 						}
-
+						
 						if (campo.getMatriz()[linhaGuiClicada][colunaGuiClicada].getRevelado()) {
 							return;
 						}
@@ -120,7 +120,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 							atualizarBotoes();
 							GerenciadorDePontuacoes gerenciador = new GerenciadorDePontuacoes();
-							gerenciador.adicionarPontuacao(nomeJogador, pontuacaoAtual);
+							gerenciador.adicionarPontuacao(nomesJogador, pontuacaoAtual);
 							jogoPerdido();
 
 						} else if ((campo.getMatriz()[linhaGuiClicada][colunaGuiClicada] instanceof CelulaVazia)
@@ -261,7 +261,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	}
 	private void jogoVencido() {
 		GerenciadorDePontuacoes gerenciador = new GerenciadorDePontuacoes();
-		gerenciador.adicionarPontuacao(nomeJogador, pontuacaoAtual);
+		gerenciador.adicionarPontuacao(nomesJogador, pontuacaoAtual);
 		JDialog gameWinDialog = new JDialog(this, "Parabens, Voce Venceu!", true);
 	    gameWinDialog.setSize(300, 150);
 	    gameWinDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -321,4 +321,6 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 
 	}
+
+	
 }

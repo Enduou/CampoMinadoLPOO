@@ -5,6 +5,7 @@ import java.util.*;
 
 public class GerenciadorDePontuacoes {
     private List<String> pontuacoes;
+    private List<String> nomes;
     private static final String ARQUIVO_DE_PONTUACOES = "pontuacoes.txt";
 
     public GerenciadorDePontuacoes() {
@@ -24,8 +25,8 @@ public class GerenciadorDePontuacoes {
         }
     }
 
-    public void adicionarPontuacao(String nomeJogador, int pontuacaoAtual) {
-        String entradaPontuacao = nomeJogador + " - " + pontuacaoAtual;
+    public void adicionarPontuacao(String nomesJogador, int pontuacaoAtual) {
+        String entradaPontuacao = nomesJogador + " - " + pontuacaoAtual;
         pontuacoes.add(entradaPontuacao);
         salvarPontuacoes(); 
     }
@@ -45,4 +46,5 @@ public class GerenciadorDePontuacoes {
     public List<String> getPontuacoes() {
         return new ArrayList<>(pontuacoes);
     }
+    
 }
