@@ -83,13 +83,13 @@ public class DificuldadesCampo extends JFrame implements ActionListener {
 	private static Campo escolherDificuldade(int escolha) {
 		switch (escolha) {
 		case 0:
-			return new CampoMedio(5, 5, 5);
+			return new CampoMedio(5, 5, 4);
 
 		case 1:
 			return new CampoMedio(10, 10, 13);
 
 		case 2:
-			return new CampoMedio(17, 17, 17);
+			return new CampoMedio(17, 17, 20);
 
 		default:
 			System.exit(0);

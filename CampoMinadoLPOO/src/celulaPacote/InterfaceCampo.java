@@ -1,6 +1,6 @@
 package celulaPacote;
 
-public interface InterfaceCampo {
+public abstract interface InterfaceCampo {
 	
 	public void iniciarJogo();
 	

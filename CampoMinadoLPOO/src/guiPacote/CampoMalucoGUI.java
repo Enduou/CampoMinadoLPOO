@@ -104,7 +104,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 						if ((campo.getMatriz()[linhaClicada][colunaClicada] instanceof CelulaBomba) && (!campo.getMatriz()[linhaClicada][colunaClicada].getFlag())) {
 							campo.getMatriz()[linhaClicada][colunaClicada].revelar();
 							
-							//colocar imagem da bomba
+						
 							
 							botaoClicado.setLayout(new BorderLayout());
 							
@@ -310,6 +310,17 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 
 //	metodo para informar que o usuario perdeu
 	private void jogoPerdido() {
+		
+
+	    for (int i = 0; i < campo.getLinha(); i++) {
+	        for (int j = 0; j < campo.getColuna(); j++) {
+	            if (campo.getMatriz()[i][j] instanceof CelulaBomba) {
+	               
+	                botao[i][j].setIcon(redimensionarIcone("images/bomba.png", 20, 20));
+	                campo.getMatriz()[i][j].revelar(); 
+	            }
+	        }
+	    }
 	    JDialog gameLostDialog = new JDialog(this, "Game Over", true);
 	    gameLostDialog.setSize(300, 150);
 	    gameLostDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -318,7 +329,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	    JLabel gameOverLabel = new JLabel("Game Over! Voc� perdeu o jogo.", SwingConstants.CENTER);
 	    gameLostDialog.add(gameOverLabel, BorderLayout.CENTER);
 
-	    Timer timer = new Timer(4000, new ActionListener() {
+	    Timer timer = new Timer(2000, new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            
@@ -358,7 +369,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	
 		public int contadorBombas() {
 		    int n = 0;
-		    System.out.println("Eu sou lindo");
+		    System.out.println("");
 		    for (int i = 0; i < campo.getLinha(); i++) {
 		        for (int j = 0; j < campo.getColuna(); j++) {
 		            if (campo.getMatriz()[i][j].getCelulaMaluca()) {

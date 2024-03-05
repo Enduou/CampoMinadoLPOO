@@ -51,8 +51,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		setTitle("Campo Minado");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout() );
-		this.setSize(800, 800);
-		this.setResizable(true);
+		setResizable(true);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		pontuacaoLabel = new JLabel(nomeJogador + " - Pontuação: 0");
 	    pontuacaoLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -247,6 +246,8 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	}
 //	metodo para informar que o usuario venceu
 	private void jogoVencido() {
+		pontuacaoAtual += 10;
+		pontuacaoLabel.setText("Pontuação: " + pontuacaoAtual);
 		GerenciadorDePontuacoes gerenciador = new GerenciadorDePontuacoes();
 		gerenciador.adicionarPontuacao(nomesJogador, pontuacaoAtual);
 		JDialog gameWinDialog = new JDialog(this, "Parabens, Voce Venceu!", true);
@@ -278,25 +279,37 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 //	metodo para informar que o usuario perdeu
 	private void jogoPerdido() {
+	   
+	    for (int i = 0; i < campo.getLinha(); i++) {
+	        for (int j = 0; j < campo.getColuna(); j++) {
+	            if (campo.getMatriz()[i][j] instanceof CelulaBomba) {
+	               
+	                botoes[i][j].setIcon(redimensionarIcone("images/bomba.png", 20, 20));
+	                campo.getMatriz()[i][j].revelar(); 
+	            }
+	        }
+	    }
+	    
+	    // Agora, exibir o diálogo de jogo perdido
 	    JDialog gameLostDialog = new JDialog(this, "Game Over", true);
 	    gameLostDialog.setSize(300, 150);
 	    gameLostDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    gameLostDialog.setLayout(new BorderLayout());
 
-	    JLabel gameOverLabel = new JLabel("Game Over! Voce perdeu o jogo.", SwingConstants.CENTER);
+	    JLabel gameOverLabel = new JLabel("Game Over! Você perdeu o jogo.", SwingConstants.CENTER);
 	    gameLostDialog.add(gameOverLabel, BorderLayout.CENTER);
 
-	    Timer timer = new Timer(4000, new ActionListener() {
+	    Timer timer = new Timer(2000, new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            
-	            dispose(); 
+	            gameLostDialog.dispose();
+	            dispose();
 	            new Menu();
 	        }
 	    });
 
 	    timer.setRepeats(false);
-	    timer.start();           
+	    timer.start();
 
 	    gameLostDialog.setLocationRelativeTo(this);
 	    gameLostDialog.setVisible(true);

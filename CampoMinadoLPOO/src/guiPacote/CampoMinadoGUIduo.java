@@ -33,7 +33,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	private int pontuacaoAtual1 = 0;
 	private int pontuacaoAtual2 = 0;
 	private JLabel pontuacaoLabel1;
-
+	private int contadorDePerdas;
 
 	public ImageIcon redimensionarIcone(String caminhoImagem, int largura, int altura) {
 	    ImageIcon iconeOriginal = new ImageIcon(caminhoImagem);
@@ -204,11 +204,7 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 		
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
-		
-		System.out.println(campo.getBombas());
-		System.out.println(bombasFlag);
-		System.out.println(flagsCorretas());
-		
+	
 		
 	}
 	
@@ -308,21 +304,45 @@ public class CampoMinadoGUIduo extends JFrame implements ActionListener {
 	    JLabel gameOverLabel = new JLabel("Game Over! Você perdeu o jogo.", SwingConstants.CENTER);
 	    gameLostDialog.add(gameOverLabel, BorderLayout.CENTER);
 
-	    Timer timer = new Timer(4000, new ActionListener() {
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	            
-	            dispose(); 
-	            new Menu();
-	        }
-	    });
-
-	    timer.setRepeats(false);
-	    timer.start();           
-
+	    
 	    gameLostDialog.setLocationRelativeTo(this);
 	    gameLostDialog.setVisible(true);
+
+	    contadorDePerdas++;
+
+	    if (contadorDePerdas >= 2) {
+
+		    for (int i = 0; i < campo.getLinha(); i++) {
+		        for (int j = 0; j < campo.getColuna(); j++) {
+		            if (campo.getMatriz()[i][j] instanceof CelulaBomba) {
+		               
+		                botoes[i][j].setIcon(redimensionarIcone("images/bomba.png", 20, 20));
+		                campo.getMatriz()[i][j].revelar(); 
+		            }
+		        }
+		    }
+	        Timer timer = new Timer(2000, e -> {
+	        	
+	        	
+	            gameLostDialog.dispose();
+	            dispose(); 
+	            new Menu();
+	            
+	            
+	        });
+	        timer.setRepeats(false); 
+	        timer.start(); 
+	    } else {
+	       
+	        Timer timer = new Timer(2000, e -> {
+	            alternarJogador(); 
+	            gameLostDialog.dispose(); 
+	        });
+	        timer.setRepeats(false); 
+	        timer.start(); 
+	    }
 	}
+
 
 
 	@Override

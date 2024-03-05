@@ -89,7 +89,7 @@ public class DificuldadesCampoDuo extends JFrame implements ActionListener {
 			return new CampoMedio(10, 10, 13);
 
 		case 2:
-			return new CampoMedio(17, 17, 17);
+			return new CampoMedio(17, 17, 20);
 
 		default:
 			System.exit(0);
