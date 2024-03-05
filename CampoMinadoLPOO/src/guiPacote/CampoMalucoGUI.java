@@ -18,11 +18,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 import celulaPacote.CampoMaluco;
-import celulaPacote.CampoMedio;
 import celulaPacote.Celula;
 import celulaPacote.CelulaBomba;
 import celulaPacote.CelulaVazia;
@@ -47,6 +45,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	public CampoMalucoGUI(CampoMaluco campo) {
 		this.campo = campo;
 		
+//		metodo que inicia o back
 		campo.iniciarJogo();
 		
 		setTitle("Campo Minado");
@@ -108,7 +107,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 							//colocar imagem da bomba
 							
 							botaoClicado.setLayout(new BorderLayout());
-							//botaoClicado.add(new JLabel(bombIcon),BorderLayout.CENTER); (*preciso fazer funcionar*)
+							
 							
 							atualizarBotoes();
 							
@@ -137,7 +136,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 				botao[i][j].addMouseListener((MouseListener) new MouseAdapter() {
 					 @Override
 					 public void mouseClicked(MouseEvent e) {
-	                        //verificando se � um clique com o bot�o direito
+	                        //verificando se  um clique com o botao direito
 	                        if (e.getButton() == MouseEvent.BUTTON3) {
 	                            if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
 	                                if (!campo.getMatriz()[linhaGui][colunaGui].getFlag()) {
@@ -219,39 +218,38 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 		
 		this.setVisible(true);
 		this.setLocationRelativeTo(null);
-		printcampoState();
-		contadorBombas();
+		
 		
 	}
 	
 	
 
-
+// atualiza o campo apos a abertura de celulas
 	public void atualizarBotoes() {
 	    ImageIcon iconeBomba = redimensionarIcone("images/bomba.png", 20, 20);
 	    ImageIcon iconeFlag = redimensionarIcone("images/flag.png", 20, 20);
 	    
 	    for (int i = 0; i < botao.length; i++) {
 	        for (int j = 0; j < botao[i].length; j++) {
-	            // Redimensione de acordo com o tamanho do seu botão
-	            botao[i][j].setIcon(null); // Limpa o ícone anterior
+	            // Redimensione de acordo com o tamanho do seu botao
+	            botao[i][j].setIcon(null); // Limpa o icone anterior
 	            if (campo.getMatriz()[i][j].getRevelado()) {
 	                if (campo.getMatriz()[i][j] instanceof CelulaBomba && !campo.getMatriz()[i][j].getFlag()) {
 	                    botao[i][j].setIcon(iconeBomba);
 	                } else if (campo.getMatriz()[i][j] instanceof CelulaVazia && !campo.getMatriz()[i][j].getFlag()) {
-	                    botao[i][j].setText("_"); // Celulas vazias não mostram texto ou ícone
+	                    botao[i][j].setText("_"); // Celulas vazias nao mostram texto ou iccone
 	                } else if (campo.getMatriz()[i][j] instanceof CelulaVizinha && !campo.getMatriz()[i][j].getFlag()) {
 	                    int bombasAoRedor = campo.calcularBombas(i, j);
 	                    if(bombasAoRedor == 0) {
 	                    	botao[i][j].setText("_");
 	                    }else {
-	                    	botao[i][j].setText(Integer.toString(bombasAoRedor)); // Mostra o número de bombas ao redor	
+	                    	botao[i][j].setText(Integer.toString(bombasAoRedor)); // Mostra o numero de bombas ao redor
 	                    }
 	                 
 	                }
 	            } else {
 	                if (campo.getMatriz()[i][j].getFlag()) {
-	                    botao[i][j].setIcon(iconeFlag); // Aplica o ícone de flag
+	                    botao[i][j].setIcon(iconeFlag); // Aplica o ide flag
 	                } else {
 	                    botao[i][j].setText("");
 	                }
@@ -260,7 +258,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	    }
 	}
 
-
+// contabiliza as flags que o usuario marcou no local correto
 	
 	private boolean flagsCorretas() {
 	    int contadorBombasMarcadas = 0;
@@ -281,7 +279,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	    
 	    return contadorBombasMarcadas == bombas && contadorFlagsIncorretas == 0;
 	}
-	
+//	metodo para informar que o usuario venceu
 	private void jogoVencido() {
 	    JDialog gameWinDialog = new JDialog(this, "Parabens, Voce Venceu!", true);
 	    gameWinDialog.setSize(300, 150);
@@ -294,10 +292,10 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	    Timer timer = new Timer(4000, new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // A��o a ser realizada ap�s 4 segundos
+	            
 	            dispose();
 	          
-	            new Menu(); // M�todo para retornar ao menu principal
+	            new Menu(); 
 	            
 	        }
 	    });
@@ -310,7 +308,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	    gameWinDialog.setVisible(true);
 	}
 
-	
+//	metodo para informar que o usuario perdeu
 	private void jogoPerdido() {
 	    JDialog gameLostDialog = new JDialog(this, "Game Over", true);
 	    gameLostDialog.setSize(300, 150);
@@ -336,7 +334,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 	    gameLostDialog.setVisible(true);
 	}
 
-	
+//	metodo para observar o funcionamento do tabuleiro no console
 		public void printcampoState() {
 		    System.out.println("Current campo:");
 		    for (int i = 0; i < campo.getLinha(); i++) {
@@ -364,7 +362,7 @@ public class CampoMalucoGUI extends JFrame implements ActionListener {
 		    for (int i = 0; i < campo.getLinha(); i++) {
 		        for (int j = 0; j < campo.getColuna(); j++) {
 		            if (campo.getMatriz()[i][j].getCelulaMaluca()) {
-		                n++  ; // Incrementa o contador para c�lulas malucas
+		                n++  ; 
 		               
 		            }
 		        }

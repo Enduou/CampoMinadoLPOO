@@ -61,7 +61,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 
 		painelTabuleiro = new JPanel(new GridLayout(campo.getLinha(), campo.getColuna()));
 	    botoes = new JButton[campo.getLinha()][campo.getColuna()];
-
+	    
 	    inicializarTabuleiro();
 	    add(painelTabuleiro, BorderLayout.CENTER);
 		pack();
@@ -70,9 +70,10 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	}
 	
 	
-	
+//	metodo que inicia o tabuleiro
 	private void inicializarTabuleiro() {
 		ImageIcon iconeFlag = redimensionarIcone("images/flag.png", 20, 20);
+//		metodo que inicia o back
 		campo.iniciarJogo();
 		for (int i = 0; i < campo.getLinha(); i++) {
 			for (int j = 0; j < campo.getColuna(); j++) {
@@ -184,25 +185,9 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 						}
 					}
 
-					@Override
-					public void mouseEntered(MouseEvent e) {
-					    //hover on
-					    if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
-//					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,255));
-					    } else {
-//					        botoes[linhaGui][colunaGui].setBackground(new Color(240,255,235));
-					    }
-					}
-
-					@Override
-					public void mouseExited(MouseEvent e) {
-					    //hover off
-					    if (!campo.getMatriz()[linhaGui][colunaGui].getRevelado()) {
-//					        botoes[linhaGui][colunaGui].setBackground(new Color(245,255,250));
-					    } else {
-//					        botoes[linhaGui][colunaGui].setBackground(new Color(245,255,250));
-					    }
-					}
+					
+					
+					
 				});
 			}
 		}
@@ -217,7 +202,8 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		
 	}
 	
-
+	// contabiliza as flags que o usuario marcou no local correto
+	
 	private boolean flagsCorretas() {
 		for (int i = 0; i < campo.getLinha(); i++) {
 			for (int j = 0; j < campo.getColuna(); j++) {
@@ -234,7 +220,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		}
 		return true;
 	}
-
+	// atualiza o campo apos a abertura de celulas
 	public void atualizarBotoes() {
 		
 		ImageIcon iconeBomba = redimensionarIcone("images/bomba.png", 20, 20);
@@ -259,6 +245,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 		}
 
 	}
+//	metodo para informar que o usuario venceu
 	private void jogoVencido() {
 		GerenciadorDePontuacoes gerenciador = new GerenciadorDePontuacoes();
 		gerenciador.adicionarPontuacao(nomesJogador, pontuacaoAtual);
@@ -289,7 +276,7 @@ public class CampoMinadoGUI extends JFrame implements ActionListener {
 	    gameWinDialog.setVisible(true);
 	}
 
-	
+//	metodo para informar que o usuario perdeu
 	private void jogoPerdido() {
 	    JDialog gameLostDialog = new JDialog(this, "Game Over", true);
 	    gameLostDialog.setSize(300, 150);

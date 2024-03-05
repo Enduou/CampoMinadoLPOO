@@ -82,13 +82,13 @@ public class DificuldadesMaluco extends JFrame implements ActionListener {
 	private static CampoMaluco escolherDificuldade(int escolha) {
 		switch (escolha) {
 		case 0:
-			return new CampoMaluco(5, 5, 5, 3);
+			return new CampoMaluco(5, 5, 7, 10);
 
 		case 1:
-			return new CampoMaluco(12, 12, 5,60);
+			return new CampoMaluco(12, 12, 19,60);
 
 		case 2:
-			return new CampoMaluco(17, 17, 17,17);
+			return new CampoMaluco(17, 17, 33,50);
 
 		default:
 			System.exit(0);
